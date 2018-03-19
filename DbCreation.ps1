@@ -23,7 +23,8 @@ if ($rd.Read())
 	Write-Host "Database $dbname dropped";
 }
 
-
+$rd.Close();
+$rd.Dispose();
 
 # Create the database.
 $sql = "CREATE DATABASE [$dbname];"

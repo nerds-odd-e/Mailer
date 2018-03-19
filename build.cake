@@ -1,3 +1,4 @@
+#addin "Cake.Powershell"    
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -48,8 +49,16 @@ Task("Build")
     }
 });
 
-Task("Run-Unit-Tests")
+Task("Db-Script")
     .IsDependentOn("Build")
+    .Description("Run an example powershell command with parameters")
+    .Does(() =>
+{
+    StartPowershellFile("DbCreation.ps1");
+});
+
+Task("Run-Unit-Tests")
+    .IsDependentOn("Db-Script")
     .Does(() =>
 {
     NUnit3("./Mailer/**/bin/" + configuration + "/*.Tests.dll", new NUnit3Settings {
