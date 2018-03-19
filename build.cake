@@ -1,5 +1,5 @@
 #addin "Cake.Powershell"    
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
+#tool "nuget:?package=NUnit.ConsoleRunner"
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -12,7 +12,7 @@ var configuration = Argument("configuration", "Release");
 //////////////////////////////////////////////////////////////////////
 
 // Define directories.
-var buildDir = Directory("./Mailer/bin") + Directory(configuration);
+var buildDir = Directory("./Mailer/bin/") + Directory(configuration);
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -58,11 +58,13 @@ Task("Db-Script")
 });
 
 Task("Run-Unit-Tests")
-    .IsDependentOn("Db-Script")
+    .IsDependentOn("Build")
+//    .IsDependentOn("Db-Script")
     .Does(() =>
 {
-    NUnit3("./Mailer/**/bin/" + configuration + "/*.Tests.dll", new NUnit3Settings {
-        NoResults = true
+    NUnit3("./Mailer.Tests/bin/" + configuration + "/*.Tests.dll", new NUnit3Settings {
+        NoResults = true,
+        ToolPath="./tools/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe"
         });
 });
 

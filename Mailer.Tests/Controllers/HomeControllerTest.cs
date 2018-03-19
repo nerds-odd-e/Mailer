@@ -6,13 +6,20 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mailer;
 using Mailer.Controllers;
+using NUnit.Framework;
+using Assert = NUnit.Framework.Assert;
 
 namespace Mailer.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class HomeControllerTest
     {
-        [TestMethod]
+        [Test]
+        public void TestFail_testing()
+        {
+            Assert.AreEqual(false,true);
+        }
+        [Test]
         public void Index()
         {
             // Arrange
@@ -25,7 +32,7 @@ namespace Mailer.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void About()
         {
             // Arrange
@@ -38,7 +45,7 @@ namespace Mailer.Tests.Controllers
             Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
 
-        [TestMethod]
+        [Test]
         public void Contact()
         {
             // Arrange
