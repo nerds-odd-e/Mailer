@@ -1,0 +1,6 @@
+1. right click .\Mailer\Mailer and go to security tab
+2. click Edit and add user IIS_IUSRS, click check name
+3. grant full permission for this user
+4. open IIS, go to sites and right click to add website, the physical path is .\Mailer\Mailer
+5. go to authentication in the IIS, edit anonymous authentication
+6. change the identity to applicaiton pool identity
