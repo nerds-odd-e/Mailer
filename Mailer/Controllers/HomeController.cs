@@ -32,11 +32,20 @@ namespace Mailer.Controllers
 
         public ISmtpClient Client { get; set; }
 
-        public void SendEmail(MailMessage mail)
+        public void SendEmail(List<string> recipientList)
         {
             var password = "";
             Client.Initialize("smtp.gmail.com", 587, "myodde@gmail.com", password);
-            Client.Send(mail);
+            foreach (var recipient in recipientList)
+            {
+                var mail = new MailMessage("myodde@gmail.com", recipient)
+                {
+                    Subject = "this is a test email.",
+                    Body = "this is my test email body"
+                };
+                Client.Send(mail);
+            }
+            
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using System.Net.Mail;
 using Mailer.Controllers;
 using Mailer.Services;
@@ -15,11 +16,9 @@ namespace Mailer.Tests
             var fakeClient = Substitute.For<ISmtpClient>();
             var homeController = new HomeController();
             homeController.Client = fakeClient;
-            MailMessage mail = new MailMessage("myodde@gmail.com", "shelvia.ho@gmail.com");
-            mail.Subject = "this is a test email.";
-            mail.Body = "this is my test email body";
-            homeController.SendEmail(mail);
-            fakeClient.Received(1).Send(Arg.Any<MailMessage>());
+            var recipientList = new List<string>{"test1@gmail.com","test2@gmail.com"};
+            homeController.SendEmail(recipientList);
+            fakeClient.Received(2).Send(Arg.Any<MailMessage>());
         }
     }
 
