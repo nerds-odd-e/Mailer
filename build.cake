@@ -58,8 +58,8 @@ Task("Db-Script")
 });
 
 Task("Run-Unit-Tests")
-    .IsDependentOn("Build")
-//    .IsDependentOn("Db-Script")
+ //   .IsDependentOn("Build")
+    .IsDependentOn("Db-Script")
     .Does(() =>
 {
     NUnit3("./Mailer.Tests/bin/" + configuration + "/*.Tests.dll", new NUnit3Settings {
