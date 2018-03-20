@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using Mailer.Services;
 
 namespace Mailer.Controllers
 {
@@ -25,6 +27,15 @@ namespace Mailer.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ISmtpClient Client { get; set; }
+
+        public void SendEmail(MailMessage mail)
+        {
+            var password = "";
+            Client.Initialize("smtp.gmail.com", 587, "myodde@gmail.com", password);
+            Client.Send(mail);
         }
     }
 }
