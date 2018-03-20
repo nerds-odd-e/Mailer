@@ -16,3 +16,6 @@ Examples:
 | 1               | "st@gmail;ap@gmail" | 2          |
 | 1               | "test@gmail.com"    | 1          |
 | 1               | ""                  | 0          |
+
+Scenario: Juist test
+	Given I want to visit a website

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Mail;
 using System.Web.Mvc;
 using Mailer.Services;
@@ -24,6 +25,26 @@ namespace Mailer.Controllers
             ViewBag.Message = "Your contact page testset.";
 
             return View();
+        }
+
+        public ActionResult SendAllMail()
+        {
+            try
+            {
+                var contacts = GetAllContact();
+                SendEmail(contacts);
+                return View(true);
+            }
+            catch (Exception e)
+            {
+                return View(false);
+            }
+
+        }
+
+        private List<string> GetAllContact()
+        {
+            return new List<string>();
         }
 
         private ISmtpClient _client;

@@ -46,5 +46,17 @@ namespace Mailer.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
         }
+
+        [Test]
+        public void SendMail()
+        {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+            ViewResult result = controller.SendAllMail() as ViewResult;
+
+            Assert.IsNotNull(result);
+        }
     }
 }

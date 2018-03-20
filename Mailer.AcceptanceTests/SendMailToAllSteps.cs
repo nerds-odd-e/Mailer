@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Web.Mvc;
+using Coypu;
+using Coypu.Drivers;
 using Mailer.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
 
 namespace Mailer.AcceptanceTests
@@ -26,7 +30,8 @@ namespace Mailer.AcceptanceTests
             //EmailService service = new EmailService();
             //service.ContactEmail = ScenarioContext.Current.Get<string>("ContactEmail");
             //Actual value
-            int sentNumber= 1;
+            HomeController ctrl = new HomeController();
+            int sentNumber= (int)(ctrl.SendAllMail() as ViewResult).Model ;
 
             ScenarioContext.Current.Add("SentNumber",sentNumber);
         }
@@ -40,5 +45,14 @@ namespace Mailer.AcceptanceTests
             var expect= p0;
             Assert.AreEqual(expect,actual);
         }
+
+        [Given(@"I want to visit a website")]
+        public void GivenIWantToVisitAWebsite()
+        {
+            var browser = new BrowserSession(new SessionConfiguration() {Browser  = Browser.Chrome});
+            browser.Visit("http://localhost/Home");
+            //browser.Dispose();
+        }
+
     }
 }
