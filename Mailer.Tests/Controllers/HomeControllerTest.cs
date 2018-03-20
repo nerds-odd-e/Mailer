@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Mailer;
+﻿using System.Web.Mvc;
 using Mailer.Controllers;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
@@ -14,11 +8,6 @@ namespace Mailer.Tests.Controllers
     [TestFixture]
     public class HomeControllerTest
     {
-        [Test]
-        public void TestFail_testing()
-        {
-            Assert.AreEqual(false,true);
-        }
         [Test]
         public void Index()
         {
