@@ -29,7 +29,7 @@ namespace Mailer.Controllers
             return View();
         }
 
-<<<<<<< HEAD
+
         public ISmtpClient Client { get; set; }
 
         public void SendEmail(MailMessage mail)
@@ -38,8 +38,5 @@ namespace Mailer.Controllers
             Client.Initialize("smtp.gmail.com", 587, "myodde@gmail.com", password);
             Client.Send(mail);
         }
-=======
-       
->>>>>>> b0cc3cf58f7546c4bb4e54e844f9ba24af791915
     }
 }
