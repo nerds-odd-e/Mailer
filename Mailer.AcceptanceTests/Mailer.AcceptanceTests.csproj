@@ -103,6 +103,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PersonalisedEmails.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonalisedEmails.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendMailToAll.feature.cs">
       <AutoGen>True</AutoGen>
@@ -117,6 +122,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="PersonalisedEmails.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PersonalisedEmails.feature.cs</LastGenOutput>
+    </None>
     <None Include="runtests.cmd" />
     <None Include="SendMailToAll.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
