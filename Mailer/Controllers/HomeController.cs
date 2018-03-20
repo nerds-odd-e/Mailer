@@ -26,13 +26,21 @@ namespace Mailer.Controllers
             return View();
         }
 
+        private ISmtpClient _client;
 
-        public ISmtpClient Client { get; set; }
+        public ISmtpClient Client
+        {
+            get { return _client; }
+            set
+            {
+                var password = "";
+                value.Initialize("smtp.gmail.com", 587, "myodde@gmail.com", password);
+                _client = value;
+            }
+        }
 
         public void SendEmail(List<string> recipientList)
         {
-            var password = "";
-            Client.Initialize("smtp.gmail.com", 587, "myodde@gmail.com", password);
             foreach (var recipient in recipientList)
             {
                 var mail = new MailMessage("myodde@gmail.com", recipient)

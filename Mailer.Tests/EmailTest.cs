@@ -16,6 +16,7 @@ namespace Mailer.Tests
             var fakeClient = Substitute.For<ISmtpClient>();
             var homeController = new HomeController();
             homeController.Client = fakeClient;
+            fakeClient.Received(1).Initialize(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>());
             var recipientList = new List<string>{"test1@gmail.com","test2@gmail.com"};
             homeController.SendEmail(recipientList);
             fakeClient.Received(2).Send(Arg.Any<MailMessage>());
