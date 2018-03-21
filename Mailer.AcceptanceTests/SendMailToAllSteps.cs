@@ -9,6 +9,8 @@ namespace Mailer.AcceptanceTests
     public class SendMailToAllSteps
     {
         private readonly BrowserSession _browser;
+        private int _course;
+        private string _contactEmail;
 
         public SendMailToAllSteps(BrowserSession browser)
         {
@@ -16,19 +18,19 @@ namespace Mailer.AcceptanceTests
         }
 
         [Given(@"Upcoming course number is (.*)")]
-        public void GivenUpcomingCourseNumberIs(int p0)
+        public void GivenUpcomingCourseNumberIs(int number)
         {
-            ScenarioContext.Current.Add("CourseNumber", p0);
+            _course = number;
         }
 
-        [Given(@"I register a contact with email ""(.*)""")]
-        public void GivenIRegisterAContactWithEmail(string p0)
+        [Given(@"I register a contact with email (.*)")]
+        public void GivenIRegisterAContactWithEmail(string emailAddress)
         {
             _browser.Visit("http://localhost/Home");
             _browser.ClickLink("Contact");
-            _browser.FillIn("email").With(p0);
-            Assert.AreEqual(p0, _browser.FindField("email").Value);
-            ScenarioContext.Current.Add("ContactEmail", p0);
+            _browser.FillIn("email").With(emailAddress);
+            Assert.AreEqual(emailAddress, _browser.FindField("email").Value);
+            _contactEmail = emailAddress;
         }
 
         [When(@"I press send email")]
@@ -42,7 +44,7 @@ namespace Mailer.AcceptanceTests
         }
 
         [Then(@"Email sent number should be (.*)")]
-        public void ThenEmailSentNumberShouldBe(int p0)
+        public void ThenEmailSentNumberShouldBe(int emailCount)
         {
             
         }
