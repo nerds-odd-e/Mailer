@@ -1,12 +1,25 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using System.Web.Mvc;
+using Mailer.Models;
 using Mailer.Services;
 
 namespace Mailer.Controllers
 {
     public class HomeController : Controller
     {
+        private ISmtpClient _smtpClient;
+
+        public ISmtpClient SmtpClient
+        {
+            get { return _smtpClient; }
+            set
+            {
+                _smtpClient = new SmtpClientWrapper();
+            }
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -17,7 +30,7 @@ namespace Mailer.Controllers
             try
             {
                 var contacts = GetAllContact();
-                SendEmail(contacts, new SmtpClientWrapper());
+                SendEmail(contacts, _smtpClient);
                 return View(true);
             }
             catch
@@ -29,7 +42,8 @@ namespace Mailer.Controllers
 
         private List<string> GetAllContact()
         {
-            return new List<string>();
+            var db = new MailerDbEntities();
+            return db.Contacts.Select(x=> x.Email).ToList() ;
         }
 
         public void SendEmail(List<string> recipientList, ISmtpClient clientWrapper)

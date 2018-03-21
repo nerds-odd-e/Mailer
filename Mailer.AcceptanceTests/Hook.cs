@@ -24,11 +24,16 @@ namespace Mailer.AcceptanceTests
         [BeforeScenario]
         public void StartBrowserSession()
         {
+            _browser = new BrowserSession(new SessionConfiguration { AppHost = "localhost", Browser =Browser.Chrome });
+            _objectContainer.RegisterInstanceAs(_browser);
+        }
+
+        [BeforeScenario]
+        public void InitEnvFile()
+        {
             var testRootPath = AppDomain.CurrentDomain.BaseDirectory;
             var envPath = testRootPath.Substring(0, testRootPath.IndexOf("bin"));
             DotEnv.Config(true, envPath + ".env");
-            _browser = new BrowserSession(new SessionConfiguration { AppHost = "localhost", Browser =Browser.Chrome });
-            _objectContainer.RegisterInstanceAs(_browser);
         }
 
         [BeforeScenario("@with_local_smtp_server")]

@@ -1,4 +1,5 @@
-﻿using Coypu;
+﻿using System.Linq;
+using Coypu;
 using NUnit.Framework;
 using netDumbster.smtp;
 using TechTalk.SpecFlow;
@@ -32,9 +33,13 @@ namespace Mailer.AcceptanceTests
             _browser.ClickLink("Register Contact");
             _browser.ClickLink("Create New");
 
-            _browser.FillIn("Email").With(emailAddress.Replace("\"",""));
-            Assert.AreEqual(emailAddress.Replace("\"", ""), _browser.FindField("Email").Value);
-            _browser.ClickButton("Create");
+            var addresses = emailAddress.Split(';').ToList();
+            addresses.ForEach(x =>
+            {
+                _browser.FillIn("Email").With(x.Replace("\"", ""));
+                Assert.AreEqual(x.Replace("\"", ""), _browser.FindField("Email").Value);
+                _browser.ClickButton("Create");
+            });
         }
 
         [When(@"I press send email")]
