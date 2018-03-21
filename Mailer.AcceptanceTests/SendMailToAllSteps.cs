@@ -29,11 +29,11 @@ namespace Mailer.AcceptanceTests
         [Given(@"I register a contact with email (.*)")]
         public void GivenIRegisterAContactWithEmail(string emailAddress)
         {
+            _contactEmail = emailAddress;
             _browser.Visit("http://localhost/Home");
-            _browser.ClickLink("Contact");
+            _browser.ClickLink("Register Contact");
             _browser.FillIn("email").With(emailAddress);
             Assert.AreEqual(emailAddress, _browser.FindField("email").Value);
-            _contactEmail = emailAddress;
         }
 
         [When(@"I press send email")]
@@ -46,7 +46,7 @@ namespace Mailer.AcceptanceTests
         [Then(@"Email sent number should be (.*)")]
         public void ThenEmailSentNumberShouldBe(int emailCount)
         {
-            
+            Assert.AreEqual(emailCount, _smtpServer.ReceivedEmailCount);
         }
     }
 }
