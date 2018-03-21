@@ -5,6 +5,7 @@
 | Personalized email | 2 |
 | Course list in email | 5 |
 | * Sprint 1 * | 12 |
+| Display name for email |  |
 | Location Based emails | 3 |
 | Location-filtered emails | 3 |
 | Email template | 1 |
