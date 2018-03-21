@@ -29,11 +29,13 @@ namespace Mailer.AcceptanceTests
         [Given(@"I register a contact with email (.*)")]
         public void GivenIRegisterAContactWithEmail(string emailAddress)
         {
-            _contactEmail = emailAddress;
-            _browser.Visit("http://localhost/Home");
+            _browser.Visit("http://localhost");
             _browser.ClickLink("Register Contact");
-            _browser.FillIn("email").With(emailAddress);
-            Assert.AreEqual(emailAddress, _browser.FindField("email").Value);
+            _browser.ClickLink("Create New");
+
+            _browser.FillIn("Email").With(emailAddress.Replace("\"",""));
+            Assert.AreEqual(emailAddress.Replace("\"", ""), _browser.FindField("Email").Value);
+            _browser.ClickButton("Create");
         }
 
         [When(@"I press send email")]
