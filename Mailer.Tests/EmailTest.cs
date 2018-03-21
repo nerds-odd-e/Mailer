@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using System.Net.Mail;
+using dotenv.net;
 using Mailer.Controllers;
 using Mailer.Services;
 using NSubstitute;
@@ -10,6 +12,14 @@ namespace Mailer.Tests
     [TestFixture]
     public class EmailTest
     {
+        [SetUp]
+        public void Setup()
+        {
+            var testRootPath = AppDomain.CurrentDomain.BaseDirectory;
+            var envPath = testRootPath.Substring(0, testRootPath.IndexOf("bin"));
+            DotEnv.Config(true, envPath+".env");
+        }
+
         [Test]
         public void SendEmail()
         {

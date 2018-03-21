@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Mail;
 using System.Web.Mvc;
 using Mailer.Services;
@@ -43,6 +44,22 @@ namespace Mailer.Controllers
         private List<string> GetAllContact()
         {
             return new List<string>();
+        }
+
+        private ISmtpClient _client;
+
+        public ISmtpClient Client
+        {
+            get { return _client; }
+            set
+            {
+                var myoddeEmailPassword = Environment.GetEnvironmentVariable("myoddeEmailPassword");
+                var gmailServer = Environment.GetEnvironmentVariable("gmailServer");
+                var gmailServerPort = int.Parse(Environment.GetEnvironmentVariable("gmailServerPort"));
+                var myoddeSenderEmail = Environment.GetEnvironmentVariable("myoddeSenderEmail");
+                value.Initialize(gmailServer, gmailServerPort, myoddeSenderEmail, myoddeEmailPassword);
+                _client = value;
+            }
         }
 
         public void SendEmail(List<string> recipientList)

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BoDi;
 using Coypu;
 using Coypu.Drivers;
+using dotenv.net;
 using netDumbster.smtp;
 using TechTalk.SpecFlow;
 
@@ -26,6 +23,9 @@ namespace Mailer.AcceptanceTests
         [BeforeScenario]
         public void StartBrowserSession()
         {
+            var testRootPath = AppDomain.CurrentDomain.BaseDirectory;
+            var envPath = testRootPath.Substring(0, testRootPath.IndexOf("bin"));
+            DotEnv.Config(true, envPath + ".env");
             _browser = new BrowserSession(new SessionConfiguration { AppHost = "localhost", Browser =Browser.Chrome });
             _objectContainer.RegisterInstanceAs(_browser);
         }

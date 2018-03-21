@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using dotenv.net;
 
 namespace Mailer
 {
@@ -12,10 +10,13 @@ namespace Mailer
     {
         protected void Application_Start()
         {
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            var rootPath = AppDomain.CurrentDomain.BaseDirectory;
+            DotEnv.Config(true, rootPath + "/.env");
         }
     }
 }
