@@ -8,19 +8,6 @@ namespace Mailer.Controllers
 {
     public class HomeController : Controller
     {
-        private ISmtpClient _client;
-
-        public ISmtpClient Client
-        {
-            get { return _client; }
-            set
-            {
-                var password = "";
-                value.Initialize("smtp.gmail.com", 587, "myodde@gmail.com", password);
-                _client = value;
-            }
-        }
-
         public ActionResult Index()
         {
             return View();
