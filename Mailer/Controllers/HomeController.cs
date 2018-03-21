@@ -9,16 +9,7 @@ namespace Mailer.Controllers
 {
     public class HomeController : Controller
     {
-        private ISmtpClient _smtpClient;
-
-        public ISmtpClient SmtpClient
-        {
-            get { return _smtpClient; }
-            set
-            {
-                _smtpClient = new SmtpClientWrapper();
-            }
-        }
+        public ISmtpClient Client { get; set; }
 
         public ActionResult Index()
         {
@@ -29,15 +20,18 @@ namespace Mailer.Controllers
         {
             try
             {
+                if (Client == null)
+                {
+                    Client = new SmtpClientWrapper();
+                }
                 var contacts = GetAllContact();
-                SendEmail(contacts, _smtpClient);
+                SendEmail(contacts, Client);
                 return View(true);
             }
             catch
             {
                 return View(false);
             }
-
         }
 
         private List<string> GetAllContact()
