@@ -41,6 +41,7 @@ namespace Mailer.AcceptanceTests
            
             ctrl.SendAllMail();
             
+
         }
 
         [Then(@"Email sent number should be (.*)")]

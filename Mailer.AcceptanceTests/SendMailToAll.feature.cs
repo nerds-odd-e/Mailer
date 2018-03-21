@@ -61,7 +61,7 @@ namespace Mailer.AcceptanceTests
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void SendAllEmail(string upcomingCourse, string contacts, string emailSent, string[] exampleTags)
+        public virtual void SendAllEmailNoUpComingCourse(string upcomingCourse, string contacts, string emailSent, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "SendAllEMail"};
@@ -69,7 +69,7 @@ namespace Mailer.AcceptanceTests
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Send All Email", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Send All Email (no up coming course)", @__tags);
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -84,39 +84,39 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, Variant 0", new string[] {
+        [TechTalk.SpecRun.ScenarioAttribute("Send All Email (no up coming course), Variant 0", new string[] {
                 "SendAllEMail"}, SourceLine=12)]
-        public virtual void SendAllEmail_Variant0()
+        public virtual void SendAllEmailNoUpComingCourse_Variant0()
         {
 #line 5
-this.SendAllEmail("0", "test@gmail.com", "0", ((string[])(null)));
+this.SendAllEmailNoUpComingCourse("0", "\"test@gmail.com\"", "0", ((string[])(null)));
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, Variant 1", new string[] {
+        [TechTalk.SpecRun.ScenarioAttribute("Send All Email (no up coming course), Variant 1", new string[] {
                 "SendAllEMail"}, SourceLine=12)]
-        public virtual void SendAllEmail_Variant1()
+        public virtual void SendAllEmailNoUpComingCourse_Variant1()
         {
 #line 5
-this.SendAllEmail("1", "st@gmail;ap@gmail", "2", ((string[])(null)));
+this.SendAllEmailNoUpComingCourse("1", "\"st@gmail;ap@gmail\"", "2", ((string[])(null)));
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, Variant 2", new string[] {
+        [TechTalk.SpecRun.ScenarioAttribute("Send All Email (no up coming course), Variant 2", new string[] {
                 "SendAllEMail"}, SourceLine=12)]
-        public virtual void SendAllEmail_Variant2()
+        public virtual void SendAllEmailNoUpComingCourse_Variant2()
         {
 #line 5
-this.SendAllEmail("1", "test@gmail.com", "1", ((string[])(null)));
+this.SendAllEmailNoUpComingCourse("1", "\"test@gmail.com\"", "1", ((string[])(null)));
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, Variant 3", new string[] {
+        [TechTalk.SpecRun.ScenarioAttribute("Send All Email (no up coming course), Variant 3", new string[] {
                 "SendAllEMail"}, SourceLine=12)]
-        public virtual void SendAllEmail_Variant3()
+        public virtual void SendAllEmailNoUpComingCourse_Variant3()
         {
 #line 5
-this.SendAllEmail("1", "", "0", ((string[])(null)));
+this.SendAllEmailNoUpComingCourse("1", "\"\"", "0", ((string[])(null)));
 #line hidden
         }
         
