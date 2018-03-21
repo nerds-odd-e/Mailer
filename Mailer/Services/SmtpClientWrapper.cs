@@ -17,12 +17,16 @@ namespace Mailer.Services
 
         public void Initialize(string host, int port, string email, string password)
         {
-            SmtpClient.EnableSsl = true;
             SmtpClient.Port = port;
             SmtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             SmtpClient.UseDefaultCredentials = false;
             SmtpClient.Credentials = new NetworkCredential(email, password);
             SmtpClient.Host = host;
+        }
+
+        public void EnableSsl()
+        {
+            SmtpClient.EnableSsl = true;
         }
     }
 }
