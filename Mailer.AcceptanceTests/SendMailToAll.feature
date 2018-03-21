@@ -15,5 +15,3 @@ Examples:
 | 1               | "test@gmail.com"    | 1          |
 | 1               | ""                  | 0          |
 
-Scenario: Juist test
-	Given I want to visit a website
