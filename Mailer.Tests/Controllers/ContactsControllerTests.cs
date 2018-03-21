@@ -11,6 +11,7 @@ namespace Mailer.Tests.Controllers
     {
         private ContactsController _controller;
         private MailerDbEntities _db ;
+
         [OneTimeSetUp]
         public void Init()
         {
@@ -84,7 +85,7 @@ namespace Mailer.Tests.Controllers
         [Test]
         public void EditTestContactIsValid()
         {
-            var result = _controller.Edit(GetContact().ID) as ViewResult;
+            _controller.Edit(GetContact().ID);
             Assert.AreEqual(true, _controller.ModelState.IsValid);
         }
 
@@ -94,7 +95,7 @@ namespace Mailer.Tests.Controllers
             var contact = GetContact();
             string expected = "test1@gmail.com";
             contact.Email = expected;
-            var result = _controller.Edit(GetContact()) as RedirectToRouteResult;
+            var result = _controller.Edit(GetContact());
             var resContact = _db.Contacts.First(x => x.ID == contact.ID);
             Assert.IsNotNull(result);
             Assert.AreEqual(expected, resContact.Email);
@@ -110,21 +111,18 @@ namespace Mailer.Tests.Controllers
                     Email = "UnitTest@Test.com"
                 });
             }
-
             return _db.Contacts.First();
         }
         [Test]
         public void DeleteTest_idIsNULL()
         {
-            int? id = null;
-            HttpStatusCodeResult result = _controller.Delete(id) as HttpStatusCodeResult;
+            HttpStatusCodeResult result = _controller.Delete(null) as HttpStatusCodeResult;
             Assert.AreEqual(400, result.StatusCode);
         }
         [Test]
         public void DeleteTest_ContactIsNULL()
         {
-            int? id = 0;
-            HttpNotFoundResult result = _controller.Delete(id) as HttpNotFoundResult;
+            HttpNotFoundResult result = _controller.Delete(0) as HttpNotFoundResult;
             Assert.AreEqual(404, result.StatusCode);
         }
         [Test]
@@ -134,15 +132,13 @@ namespace Mailer.Tests.Controllers
             var resultContact = result.Model as Contact;
             Assert.IsNotNull(result);
             Assert.IsNotNull(resultContact);
-
         }
 
         [Test]
         public void DeleteConfirmedTest()
         {
-            int id = GetContact().ID;
+            var id = GetContact().ID;
             _controller.DeleteConfirmed(id);
-
             var result = _db.Contacts.Count(x => x.ID == id);
             Assert.AreEqual(0,result);
         }
