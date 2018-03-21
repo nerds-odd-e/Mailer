@@ -44,6 +44,7 @@ namespace Mailer.Controllers
                 var gmailServer = Environment.GetEnvironmentVariable("gmailServer");
                 var gmailServerPort = int.Parse(Environment.GetEnvironmentVariable("gmailServerPort"));
                 var myoddeSenderEmail = Environment.GetEnvironmentVariable("myoddeSenderEmail");
+                value.EnableSsl();
                 value.Initialize(gmailServer, gmailServerPort, myoddeSenderEmail, myoddeEmailPassword);
                 _client = value;
             }

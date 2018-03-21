@@ -43,6 +43,7 @@ namespace Mailer.Tests
             var fakeClient = Substitute.For<ISmtpClient>();
             var homeController = new HomeController();
             homeController.Client = fakeClient;
+            fakeClient.Received(1).EnableSsl();
             fakeClient.Received(1).Initialize(AnyString(), AnyInt(), AnyString(), AnyString());
             var recipientList = new List<string>{"test1@gmail.com","test2@gmail.com"};
             homeController.SendEmail(recipientList);
