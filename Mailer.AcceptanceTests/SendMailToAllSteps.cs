@@ -1,6 +1,7 @@
 ﻿using Coypu;
 using Mailer.Controllers;
 using NUnit.Framework;
+using netDumbster.smtp;
 using TechTalk.SpecFlow;
 
 namespace Mailer.AcceptanceTests
@@ -11,10 +12,12 @@ namespace Mailer.AcceptanceTests
         private readonly BrowserSession _browser;
         private int _course;
         private string _contactEmail;
+        private SimpleSmtpServer _smtpServer;
 
-        public SendMailToAllSteps(BrowserSession browser)
+        public SendMailToAllSteps(BrowserSession browser, SimpleSmtpServer smtpServer)
         {
             _browser = browser;
+            _smtpServer = smtpServer;
         }
 
         [Given(@"Upcoming course number is (.*)")]
@@ -36,12 +39,8 @@ namespace Mailer.AcceptanceTests
         [When(@"I press send email")]
         public void WhenIPressSendEmail()
         {
-            
-            HomeController ctrl = new HomeController();
-           
-            ctrl.SendAllMail();
-            
-
+            var controller = new HomeController();
+            controller.SendAllMail();
         }
 
         [Then(@"Email sent number should be (.*)")]
