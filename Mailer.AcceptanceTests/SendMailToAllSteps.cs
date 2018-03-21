@@ -39,8 +39,8 @@ namespace Mailer.AcceptanceTests
         [When(@"I press send email")]
         public void WhenIPressSendEmail()
         {
-            var controller = new HomeController();
-            controller.SendAllMail();
+            _browser.Visit("http://localhost/Home");
+            _browser.ClickLink("Send Email");
         }
 
         [Then(@"Email sent number should be (.*)")]

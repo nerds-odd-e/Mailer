@@ -5,6 +5,7 @@ using System.Net.Mail;
 using dotenv.net;
 using Mailer.Controllers;
 using Mailer.Services;
+using netDumbster.smtp;
 using NSubstitute;
 
 namespace Mailer.Tests
@@ -20,6 +21,20 @@ namespace Mailer.Tests
             DotEnv.Config(true, envPath+".env");
         }
 
+        [Test]
+        public void SendEmailToLocalSmtpServer()
+        {
+            var server = SimpleSmtpServer.Start(25);
+            var client = new SmtpClient("localhost", 25);
+            var mail = new MailMessage("from@gmail.com","to@gmail.com");
+            client.Send(mail);
+            Assert.AreEqual(1, server.ReceivedEmailCount);
+            var smtpMessage = server.ReceivedEmail[0];
+            Assert.AreEqual("from@gmail.com", smtpMessage.FromAddress.Address);
+            Assert.AreEqual("to@gmail.com", smtpMessage.ToAddresses[0].Address);
+            client.Dispose();
+            server.Stop();
+        }
         [Test]
         public void SendEmail()
         {
