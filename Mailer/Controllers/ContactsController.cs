@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -69,7 +70,7 @@ namespace Mailer.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(contact).State = EntityState.Modified;
+                db.Contacts.AddOrUpdate(contact);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
