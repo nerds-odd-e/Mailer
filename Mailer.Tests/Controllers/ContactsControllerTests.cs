@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Mailer.Controllers;
 using Mailer.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute.Core;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
@@ -77,14 +78,43 @@ namespace Mailer.Tests.Controllers
 
         [Test()]
         public void EditTest()
-        {                           
+        {          
             var result = controller.Edit(GetContact().ID) as ViewResult;
             Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
         }
 
+        [Test()]
+        public void EditTestContactIsInValid()
+        {
+            var contact = new Contact()
+            {
+                Email = null
+            };
+            var result = controller.Edit(contact) as ViewResult;
+            Assert.AreEqual(false, controller.ModelState.IsValid);
+        }
+        [Test()]
+        public void EditTestContactIsValid()
+        {
+            var result = controller.Edit(GetContact().ID) as ViewResult;
+            Assert.AreEqual(true, controller.ModelState.IsValid);
+        }
+        [Test()]
+        public void EditTestContact()
+        {
+            var contact = GetContact();
+            string expected = "test1@gmail.com";
+            contact.Email = expected;
+            var result = controller.Edit(GetContact()) as RedirectToRouteResult;
+            var resContact = _db.Contacts.First(x => x.ID == contact.ID);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, resContact.Email);
+
+
+        }
         private Contact GetContact()
         {
-
             if (!_db.Contacts.Any())
             {
                 controller.Create(new Contact()
@@ -125,7 +155,11 @@ namespace Mailer.Tests.Controllers
         [Test()]
         public void DeleteConfirmedTest()
         {
-            //Assert.Fail();
+            int id = GetContact().ID;
+            controller.DeleteConfirmed(id);
+
+            var result = _db.Contacts.Count(x => x.ID == id);
+            Assert.AreEqual(0,result);
         }
     }
 }
