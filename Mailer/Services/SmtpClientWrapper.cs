@@ -1,32 +1,43 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Mail;
 
 namespace Mailer.Services
 {
     public class SmtpClientWrapper : ISmtpClient
     {
-        public SmtpClient SmtpClient { get; set; }
+        private readonly SmtpClient _smtpClient;
+
         public SmtpClientWrapper()
         {
-            SmtpClient = new SmtpClient();
-        }
-        public void Send(MailMessage mailMessage)
-        {
-            SmtpClient.Send(mailMessage);
+            _smtpClient = new SmtpClient();
+            Initialize();
         }
 
-        public void Initialize(string host, int port, string email, string password)
+        public void Send(MailMessage mailMessage)
         {
-            SmtpClient.Port = port;
-            SmtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            SmtpClient.UseDefaultCredentials = false;
-            SmtpClient.Credentials = new NetworkCredential(email, password);
-            SmtpClient.Host = host;
+            _smtpClient.Send(mailMessage);
+        }
+
+        private void Initialize()
+        {
+            _smtpClient.Host = Environment.GetEnvironmentVariable("smtpHost") ?? "localhost";
+            _smtpClient.Port = int.Parse(Environment.GetEnvironmentVariable("smtpPort") ?? "25");
+            _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            _smtpClient.UseDefaultCredentials = false;
+            var email = Environment.GetEnvironmentVariable("senderEmail");
+            var password = Environment.GetEnvironmentVariable("senderPassword");
+            _smtpClient.Credentials = new NetworkCredential(email, password);
         }
 
         public void EnableSsl()
         {
-            SmtpClient.EnableSsl = true;
+            _smtpClient.EnableSsl = true;
+        }
+
+        public void Dispose()
+        {
+            _smtpClient.Dispose();
         }
     }
 }

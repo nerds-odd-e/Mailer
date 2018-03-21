@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Mail;
 using System.Web.Mvc;
 using Mailer.Services;
@@ -12,13 +11,13 @@ namespace Mailer.Controllers
         {
             return View();
         }
-        
+
         public ActionResult SendAllMail()
         {
             try
             {
                 var contacts = GetAllContact();
-                SendEmail(contacts);
+                SendEmail(contacts, new SmtpClientWrapper());
                 return View(true);
             }
             catch
@@ -33,25 +32,9 @@ namespace Mailer.Controllers
             return new List<string>();
         }
 
-        private ISmtpClient _client;
-
-        public ISmtpClient Client
+        public void SendEmail(List<string> recipientList, ISmtpClient clientWrapper)
         {
-            get { return _client; }
-            set
-            {
-                var host = Environment.GetEnvironmentVariable("smtpHost");
-                var port = int.Parse(Environment.GetEnvironmentVariable("smtpPort") ?? "25");
-                var email = Environment.GetEnvironmentVariable("senderEmail");
-                var password = Environment.GetEnvironmentVariable("senderPassword");
-                value.EnableSsl();
-                value.Initialize(host, port, email, password);
-                _client = value;
-            }
-        }
-
-        public void SendEmail(List<string> recipientList)
-        {
+            clientWrapper.EnableSsl();
             foreach (var recipient in recipientList)
             {
                 var mail = new MailMessage("myodde@gmail.com", recipient)
@@ -59,9 +42,8 @@ namespace Mailer.Controllers
                     Subject = "this is a test email.",
                     Body = "this is my test email body"
                 };
-                Client.Send(mail);
+                clientWrapper.Send(mail);
             }
-            
         }
     }
 }

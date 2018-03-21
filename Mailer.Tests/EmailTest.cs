@@ -11,11 +11,14 @@ namespace Mailer.Tests
     [TestFixture]
     public class EmailTest
     {
+        private SmtpClientWrapper _smtpClientWrapper;
+        private SimpleSmtpServer _simpleSmtpServer;
+
         [SetUp]
         public void Setup()
         {
             var testRootPath = AppDomain.CurrentDomain.BaseDirectory;
-            var envPath = testRootPath.Substring(0, testRootPath.IndexOf("bin"));
+            var envPath = testRootPath.Substring(0, testRootPath.IndexOf("bin", StringComparison.Ordinal));
             DotEnv.Config(true, envPath + ".env");
 
             using (var db = new MailerDbEntities())
@@ -24,27 +27,25 @@ namespace Mailer.Tests
             }
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            _smtpClientWrapper.Dispose();
+            _simpleSmtpServer.Stop();
+        }
+
         [Test]
         public void SendEmailToLocalSmtpServer()
         {
-            var host= Environment.GetEnvironmentVariable("smtpHost");
-            var port = int.Parse(Environment.GetEnvironmentVariable("smtpPort") ?? "25");
-            var email = Environment.GetEnvironmentVariable("senderEmail");
-            var password = Environment.GetEnvironmentVariable("senderPassword");
-            var server = SimpleSmtpServer.Start(25);
-            var client = new SmtpClientWrapper();
-            client.Initialize(host, port, email, password);
+            _simpleSmtpServer = SimpleSmtpServer.Start(25);
+            _smtpClientWrapper = new SmtpClientWrapper();
             var mail = new MailMessage("from@gmail.com", "to@gmail.com");
-            client.Send(mail);
-            Assert.AreEqual(1, server.ReceivedEmailCount);
-            var smtpMessage = server.ReceivedEmail[0];
+            _smtpClientWrapper.Send(mail);
+            Assert.AreEqual(1, _simpleSmtpServer.ReceivedEmailCount);
+            var smtpMessage = _simpleSmtpServer.ReceivedEmail[0];
             Assert.AreEqual("from@gmail.com", smtpMessage.FromAddress.Address);
             Assert.AreEqual("to@gmail.com", smtpMessage.ToAddresses[0].Address);
-            client.SmtpClient.Dispose();
-            server.Stop();
         }
-
-        
     }
 
    
