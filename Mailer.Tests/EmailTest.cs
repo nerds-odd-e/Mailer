@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System.Net.Mail;
 using dotenv.net;
+using Mailer.Models;
 using Mailer.Services;
 using netDumbster.smtp;
 
@@ -16,6 +17,11 @@ namespace Mailer.Tests
             var testRootPath = AppDomain.CurrentDomain.BaseDirectory;
             var envPath = testRootPath.Substring(0, testRootPath.IndexOf("bin"));
             DotEnv.Config(true, envPath + ".env");
+
+            using (var db = new MailerDbEntities())
+            {
+                db.Database.ExecuteSqlCommand("delete from Contact");
+            }
         }
 
         [Test]

@@ -1,5 +1,4 @@
 ﻿using Coypu;
-using Mailer.Controllers;
 using NUnit.Framework;
 using netDumbster.smtp;
 using TechTalk.SpecFlow;

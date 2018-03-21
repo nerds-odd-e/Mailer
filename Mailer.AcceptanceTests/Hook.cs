@@ -3,6 +3,7 @@ using BoDi;
 using Coypu;
 using Coypu.Drivers;
 using dotenv.net;
+using Mailer.Models;
 using netDumbster.smtp;
 using TechTalk.SpecFlow;
 
@@ -37,6 +38,14 @@ namespace Mailer.AcceptanceTests
             _objectContainer.RegisterInstanceAs(_smtpServer);
         }
 
+        [BeforeScenario]
+        public void CleanDb()
+        {
+            using (var db = new MailerDbEntities())
+            {
+                db.Database.ExecuteSqlCommand("delete from contact");
+            }
+        }
 
         [AfterScenario]
         public void DisposeBrowserSession()
