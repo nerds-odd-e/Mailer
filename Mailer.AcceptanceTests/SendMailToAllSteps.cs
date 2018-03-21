@@ -1,6 +1,6 @@
 ﻿using Coypu;
 using Mailer.Controllers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 
 namespace Mailer.AcceptanceTests

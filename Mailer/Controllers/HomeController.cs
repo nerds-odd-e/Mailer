@@ -35,7 +35,7 @@ namespace Mailer.Controllers
                 SendEmail(contacts);
                 return View(true);
             }
-            catch (Exception e)
+            catch
             {
                 return View(false);
             }
