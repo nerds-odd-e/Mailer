@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 using System.Net.Mail;
 using dotenv.net;
-using Mailer.Controllers;
 using Mailer.Services;
 using netDumbster.smtp;
-using NSubstitute;
 
 namespace Mailer.Tests
 {
@@ -18,15 +15,19 @@ namespace Mailer.Tests
         {
             var testRootPath = AppDomain.CurrentDomain.BaseDirectory;
             var envPath = testRootPath.Substring(0, testRootPath.IndexOf("bin"));
-            DotEnv.Config(true, envPath+".env");
+            DotEnv.Config(true, envPath + ".env");
         }
 
         [Test]
         public void SendEmailToLocalSmtpServer()
         {
+            var host= Environment.GetEnvironmentVariable("gmailServer");
+            var port = int.Parse(Environment.GetEnvironmentVariable("gmailServerPort") ?? "25");
+            var email = Environment.GetEnvironmentVariable("myoddeSenderEmail");
+            var password = Environment.GetEnvironmentVariable("myoddeEmailPassword");
             var server = SimpleSmtpServer.Start(25);
             var client = new SmtpClientWrapper();
-            client.Initialize("localhost", 25, "", "");
+            client.Initialize(host, port, email, password);
             var mail = new MailMessage("from@gmail.com", "to@gmail.com");
             client.Send(mail);
             Assert.AreEqual(1, server.ReceivedEmailCount);
@@ -37,28 +38,7 @@ namespace Mailer.Tests
             server.Stop();
         }
 
-        [Test]
-        public void SendEmail()
-        {
-            var fakeClient = Substitute.For<ISmtpClient>();
-            var homeController = new HomeController();
-            homeController.Client = fakeClient;
-            fakeClient.Received(1).EnableSsl();
-            fakeClient.Received(1).Initialize(AnyString(), AnyInt(), AnyString(), AnyString());
-            var recipientList = new List<string>{"test1@gmail.com","test2@gmail.com"};
-            homeController.SendEmail(recipientList);
-            fakeClient.Received(2).Send(Arg.Any<MailMessage>());
-        }
-
-        private static int AnyInt()
-        {
-            return Arg.Any<int>();
-        }
-
-        private static string AnyString()
-        {
-            return Arg.Any<string>();
-        }
+        
     }
 
    

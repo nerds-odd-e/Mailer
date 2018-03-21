@@ -1,5 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Mail;
+using System.Web.Mvc;
+using dotenv.net;
 using Mailer.Controllers;
+using Mailer.Services;
+using NSubstitute;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
@@ -9,28 +15,26 @@ namespace Mailer.Tests.Controllers
     public class HomeControllerTest
     {
         [Test]
-        public void Index()
+        public void SendEmail()
         {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
+            var fakeClient = Substitute.For<ISmtpClient>();
+            var homeController = new HomeController();
+            homeController.Client = fakeClient;
+            fakeClient.Received(1).EnableSsl();
+            fakeClient.Received(1).Initialize(AnyString(), AnyInt(), AnyString(), AnyString());
+            var recipientList = new List<string> { "test1@gmail.com", "test2@gmail.com" };
+            homeController.SendEmail(recipientList);
+            fakeClient.Received(2).Send(Arg.Any<MailMessage>());
         }
 
-        [Test]
-        public void SendMail()
+        private static int AnyInt()
         {
-            // Arrange
-            HomeController controller = new HomeController();
+            return Arg.Any<int>();
+        }
 
-            // Act
-            ViewResult result = controller.SendAllMail() as ViewResult;
-
-            Assert.IsNotNull(result);
+        private static string AnyString()
+        {
+            return Arg.Any<string>();
         }
     }
 }
