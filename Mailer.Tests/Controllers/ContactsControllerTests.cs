@@ -17,6 +17,8 @@ namespace Mailer.Tests.Controllers
         {
             _controller = new ContactsController();
             _db = new MailerDbEntities();
+            _db.Contacts.RemoveRange(_db.Contacts.Where(x => x.Email != null).AsEnumerable());
+            _db.SaveChanges();
         }
 
         [OneTimeTearDown]
@@ -26,47 +28,31 @@ namespace Mailer.Tests.Controllers
         }
 
         [Test]
-        public void IndexTest()
-        {
-            ViewResult result = _controller.Index() as ViewResult;
-            Assert.IsNotNull(result);
-        }
-
-        [Test]
-        public void DetailsTest()
-        {
-            var result = _controller.Details(GetContact().ID) as ViewResult;
-            Assert.IsNotNull(result);
-        }
-
-        [Test]
-        public void CreateTest()
+        public void CreateContact_ContactIsAdded()
         {
             _controller.Create( new Contact
             {
                 Email = "testabc@gmail.com"
             });
             var contacts = _db.Contacts.First(x => x.Email == "testabc@gmail.com");
-            _db.Contacts.Remove(contacts);
             Assert.IsNotNull(contacts);
         }
 
         [Test]
-        public void EditTest_idIsNULL()
+        public void EditContact_IdIsNULL()
         {
             var result = _controller.Edit((int?) null) as HttpStatusCodeResult;
             Assert.AreEqual(400, result.StatusCode);
         }
         [Test]
-        public void EditTest_ContactIsNULL()
+        public void EditContact_ContactIsNULL()
         {
-            int? id = 0;
-            var result = _controller.Edit(id) as HttpNotFoundResult;
+            var result = _controller.Edit(0) as HttpNotFoundResult;
             Assert.AreEqual(404, result.StatusCode);
         }
 
         [Test]
-        public void EditTest()
+        public void EditContact_ViewExist()
         {          
             var result = _controller.Edit(GetContact().ID) as ViewResult;
             Assert.IsNotNull(result);
@@ -74,7 +60,7 @@ namespace Mailer.Tests.Controllers
         }
 
         [Test]
-        public void EditTestContactIsInValid()
+        public void EditContact_NewContactIsInValid()
         {
             var contact = new Contact
             {
@@ -82,26 +68,26 @@ namespace Mailer.Tests.Controllers
             };
             Assert.Throws<System.Data.Entity.Validation.DbEntityValidationException>(()=>_controller.Edit(contact));
         }
+
         [Test]
-        public void EditTestContactIsValid()
+        public void EditContact_NewContactIsValid()
         {
             _controller.Edit(GetContact().ID);
             Assert.AreEqual(true, _controller.ModelState.IsValid);
         }
 
         [Test]
-        public void EditTestContact()
+        public void EditContact_ContactEmailShouldUpdate()
         {
             var contact = GetContact();
-            string expected = "test1@gmail.com";
-            contact.Email = expected;
-            var result = _controller.Edit(GetContact());
-            var resContact = _db.Contacts.First(x => x.ID == contact.ID);
-            Assert.IsNotNull(result);
-            Assert.AreEqual(expected, resContact.Email);
-
-
+            string newEmail = "test1@gmail.com";
+            contact.Email = newEmail;
+            var newContact = _controller.Edit(GetContact());
+            var actualContact = _db.Contacts.First(x => x.ID == contact.ID);
+            Assert.IsNotNull(newContact);
+            Assert.AreEqual(newEmail, actualContact.Email);
         }
+
         private Contact GetContact()
         {
             if (!_db.Contacts.Any())
@@ -113,20 +99,21 @@ namespace Mailer.Tests.Controllers
             }
             return _db.Contacts.First();
         }
+
         [Test]
-        public void DeleteTest_idIsNULL()
+        public void DeleteContact_IdIsNULL()
         {
             HttpStatusCodeResult result = _controller.Delete(null) as HttpStatusCodeResult;
             Assert.AreEqual(400, result.StatusCode);
         }
         [Test]
-        public void DeleteTest_ContactIsNULL()
+        public void DeleteContact_ContactIsNULL()
         {
             HttpNotFoundResult result = _controller.Delete(0) as HttpNotFoundResult;
             Assert.AreEqual(404, result.StatusCode);
         }
         [Test]
-        public void DeleteTest()
+        public void DeleteContact_ViewExist()
         {
             var result = _controller.Delete(GetContact().ID) as ViewResult;
             var resultContact = result.Model as Contact;
@@ -135,7 +122,7 @@ namespace Mailer.Tests.Controllers
         }
 
         [Test]
-        public void DeleteConfirmedTest()
+        public void DeleteConfirmed()
         {
             var id = GetContact().ID;
             _controller.DeleteConfirmed(id);
