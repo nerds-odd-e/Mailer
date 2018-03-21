@@ -1,10 +1,8 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Coypu;
 using Coypu.Drivers;
 using Mailer.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
 
 namespace Mailer.AcceptanceTests

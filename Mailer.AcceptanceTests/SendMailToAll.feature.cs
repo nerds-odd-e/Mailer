@@ -17,8 +17,7 @@ namespace Mailer.AcceptanceTests
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.3.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [TechTalk.SpecRun.FeatureAttribute("SendMailToAll", Description="\tIn order to avoid silly mistakes\r\n\tAs a math idiot\r\n\tI want to be told the sum o" +
-        "f two numbers", SourceFile="SendMailToAll.feature", SourceLine=0)]
+    [TechTalk.SpecRun.FeatureAttribute("SendMailToAll", SourceFile="SendMailToAll.feature", SourceLine=0)]
     public partial class SendMailToAllFeature
     {
         
@@ -31,8 +30,7 @@ namespace Mailer.AcceptanceTests
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SendMailToAll", "\tIn order to avoid silly mistakes\r\n\tAs a math idiot\r\n\tI want to be told the sum o" +
-                    "f two numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SendMailToAll", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -72,63 +70,63 @@ namespace Mailer.AcceptanceTests
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Send All Email (no up coming course)", @__tags);
-#line 7
+#line 5
 this.ScenarioSetup(scenarioInfo);
-#line 8
+#line 6
  testRunner.Given(string.Format("Upcoming course number is {0}", upcomingCourse), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 9
+#line 7
  testRunner.And(string.Format("I register a contact with email {0}", contacts), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 10
+#line 8
  testRunner.When("I press send email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 11
+#line 9
  testRunner.Then(string.Format("Email sent number should be {0}", emailSent), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [TechTalk.SpecRun.ScenarioAttribute("Send All Email (no up coming course), Variant 0", new string[] {
-                "SendAllEMail"}, SourceLine=14)]
+                "SendAllEMail"}, SourceLine=12)]
         public virtual void SendAllEmailNoUpComingCourse_Variant0()
         {
-#line 7
+#line 5
 this.SendAllEmailNoUpComingCourse("0", "\"test@gmail.com\"", "0", ((string[])(null)));
 #line hidden
         }
         
         [TechTalk.SpecRun.ScenarioAttribute("Send All Email (no up coming course), Variant 1", new string[] {
-                "SendAllEMail"}, SourceLine=14)]
+                "SendAllEMail"}, SourceLine=12)]
         public virtual void SendAllEmailNoUpComingCourse_Variant1()
         {
-#line 7
+#line 5
 this.SendAllEmailNoUpComingCourse("1", "\"st@gmail;ap@gmail\"", "2", ((string[])(null)));
 #line hidden
         }
         
         [TechTalk.SpecRun.ScenarioAttribute("Send All Email (no up coming course), Variant 2", new string[] {
-                "SendAllEMail"}, SourceLine=14)]
+                "SendAllEMail"}, SourceLine=12)]
         public virtual void SendAllEmailNoUpComingCourse_Variant2()
         {
-#line 7
+#line 5
 this.SendAllEmailNoUpComingCourse("1", "\"test@gmail.com\"", "1", ((string[])(null)));
 #line hidden
         }
         
         [TechTalk.SpecRun.ScenarioAttribute("Send All Email (no up coming course), Variant 3", new string[] {
-                "SendAllEMail"}, SourceLine=14)]
+                "SendAllEMail"}, SourceLine=12)]
         public virtual void SendAllEmailNoUpComingCourse_Variant3()
         {
-#line 7
+#line 5
 this.SendAllEmailNoUpComingCourse("1", "\"\"", "0", ((string[])(null)));
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Juist test", SourceLine=19)]
+        [TechTalk.SpecRun.ScenarioAttribute("Juist test", SourceLine=17)]
         public virtual void JuistTest()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Juist test", ((string[])(null)));
-#line 20
+#line 18
 this.ScenarioSetup(scenarioInfo);
-#line 21
+#line 19
  testRunner.Given("I want to visit a website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
