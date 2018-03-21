@@ -40,12 +40,12 @@ namespace Mailer.Controllers
             get { return _client; }
             set
             {
-                var myoddeEmailPassword = Environment.GetEnvironmentVariable("myoddeEmailPassword");
-                var gmailServer = Environment.GetEnvironmentVariable("gmailServer");
-                var gmailServerPort = int.Parse(Environment.GetEnvironmentVariable("gmailServerPort") ?? "25");
-                var myoddeSenderEmail = Environment.GetEnvironmentVariable("myoddeSenderEmail");
+                var host = Environment.GetEnvironmentVariable("smtpServer");
+                var port = int.Parse(Environment.GetEnvironmentVariable("smtpPort") ?? "25");
+                var email = Environment.GetEnvironmentVariable("senderEmail");
+                var password = Environment.GetEnvironmentVariable("senderPassword");
                 value.EnableSsl();
-                value.Initialize(gmailServer, gmailServerPort, myoddeSenderEmail, myoddeEmailPassword);
+                value.Initialize(host, port, email, password);
                 _client = value;
             }
         }

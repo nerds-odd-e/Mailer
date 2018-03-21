@@ -21,10 +21,10 @@ namespace Mailer.Tests
         [Test]
         public void SendEmailToLocalSmtpServer()
         {
-            var host= Environment.GetEnvironmentVariable("gmailServer");
-            var port = int.Parse(Environment.GetEnvironmentVariable("gmailServerPort") ?? "25");
-            var email = Environment.GetEnvironmentVariable("myoddeSenderEmail");
-            var password = Environment.GetEnvironmentVariable("myoddeEmailPassword");
+            var host= Environment.GetEnvironmentVariable("smtpServer");
+            var port = int.Parse(Environment.GetEnvironmentVariable("smtpPort") ?? "25");
+            var email = Environment.GetEnvironmentVariable("senderEmail");
+            var password = Environment.GetEnvironmentVariable("senderPassword");
             var server = SimpleSmtpServer.Start(25);
             var client = new SmtpClientWrapper();
             client.Initialize(host, port, email, password);
