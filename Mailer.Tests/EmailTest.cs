@@ -21,7 +21,7 @@ namespace Mailer.Tests
         [Test]
         public void SendEmailToLocalSmtpServer()
         {
-            var host= Environment.GetEnvironmentVariable("smtpServer");
+            var host= Environment.GetEnvironmentVariable("smtpHost");
             var port = int.Parse(Environment.GetEnvironmentVariable("smtpPort") ?? "25");
             var email = Environment.GetEnvironmentVariable("senderEmail");
             var password = Environment.GetEnvironmentVariable("senderPassword");
