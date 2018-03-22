@@ -187,6 +187,7 @@
     <Compile Include="Models\MailerDbEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ISmtpClient.cs" />
+    <Compile Include="Services\SmtpClientFactory.cs" />
     <Compile Include="Services\SmtpClientWrapper.cs" />
   </ItemGroup>
   <ItemGroup>

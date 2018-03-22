@@ -7,6 +7,29 @@ using Mailer.Services;
 
 namespace Mailer.Controllers
 {
+    public class Emailer
+    {
+        public Emailer(ISmtpClient client)
+        {
+            Client = client;
+        }
+
+        public ISmtpClient Client { get; set; }
+
+        public void SendEmail(List<string> recipientList)
+        {
+            foreach (var recipient in recipientList)
+            {
+                var mail = new MailMessage("myodde@gmail.com", recipient)
+                {
+                    Subject = "this is a test email.",
+                    Body = "this is my test email body"
+                };
+                Client.Send(mail);
+            }
+        }
+    }
+
     public class HomeController : Controller
     {
         public ISmtpClient Client { get; set; }
@@ -18,16 +41,11 @@ namespace Mailer.Controllers
 
         public ActionResult SendAllMail()
         {
-            try
-            {
-                var contacts = GetAllContact();
-                SendEmail(contacts, Client);
-                return View(true);
-            }
-            catch
-            {
-                return View(false);
-            }
+            var contacts = GetAllContact();
+            var Emailer = new Emailer(Client);
+            Emailer.SendEmail(contacts);
+            return View();
+
         }
 
         private List<string> GetAllContact()
