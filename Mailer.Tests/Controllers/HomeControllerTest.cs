@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Net.Mail;
 using Mailer.Controllers;
@@ -24,7 +23,11 @@ namespace Mailer.Tests.Controllers
             {
                 Client = _fakeClient
             };
+        }
 
+        [Test]
+        public void SendEmail()
+        {
             var contacts = new List<Contact>
             {
                 new Contact {Email = "test@test.com"},
@@ -32,11 +35,6 @@ namespace Mailer.Tests.Controllers
             };
             db.Contacts.AddRange(contacts);
             db.SaveChanges();
-        }
-
-        [Test]
-        public void SendEmail()
-        {
             _homeController.SendAllMail();
             _fakeClient.Received(2).Send(Arg.Any<MailMessage>());
         }
