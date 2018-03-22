@@ -17,7 +17,8 @@ namespace Mailer.AcceptanceTests
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.3.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [TechTalk.SpecRun.FeatureAttribute("PersonalisedEmails", SourceFile="PersonalisedEmails.feature", SourceLine=0)]
+    [NUnit.Framework.TestFixtureAttribute()]
+    [NUnit.Framework.DescriptionAttribute("PersonalisedEmails")]
     public partial class PersonalisedEmailsFeature
     {
         
@@ -26,7 +27,7 @@ namespace Mailer.AcceptanceTests
 #line 1 "PersonalisedEmails.feature"
 #line hidden
         
-        [TechTalk.SpecRun.FeatureInitialize()]
+        [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
@@ -34,18 +35,19 @@ namespace Mailer.AcceptanceTests
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        [TechTalk.SpecRun.FeatureCleanup()]
+        [NUnit.Framework.OneTimeTearDownAttribute()]
         public virtual void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
         
+        [NUnit.Framework.SetUpAttribute()]
         public virtual void TestInitialize()
         {
         }
         
-        [TechTalk.SpecRun.ScenarioCleanup()]
+        [NUnit.Framework.TearDownAttribute()]
         public virtual void ScenarioTearDown()
         {
             testRunner.OnScenarioEnd();
@@ -61,6 +63,9 @@ namespace Mailer.AcceptanceTests
             testRunner.CollectScenarioErrors();
         }
         
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Personalise Email Header")]
+        [NUnit.Framework.TestCaseAttribute("Xman", "Logo", "lx@gmail.com", null)]
         public virtual void PersonaliseEmailHeader(string firstName, string lastName, string emailAddress, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Personalise Email Header", exampleTags);
@@ -74,20 +79,6 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Then(string.Format("Recepient\'s email starts with \"Hi {0} {1}\"", firstName, lastName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
-        }
-        
-        [TechTalk.SpecRun.ScenarioAttribute("Personalise Email Header, Xman", SourceLine=8)]
-        public virtual void PersonaliseEmailHeader_Xman()
-        {
-#line 3
-this.PersonaliseEmailHeader("Xman", "Logo", "lx@gmail.com", ((string[])(null)));
-#line hidden
-        }
-        
-        [TechTalk.SpecRun.TestRunCleanup()]
-        public virtual void TestRunCleanup()
-        {
-            TechTalk.SpecFlow.TestRunnerManager.GetTestRunner().OnTestRunEnd();
         }
     }
 }

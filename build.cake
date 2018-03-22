@@ -58,13 +58,35 @@ Task("Db-Script")
 });
 
 Task("Run-Unit-Tests")
- //   .IsDependentOn("Build")
+    .IsDependentOn("Build")
     .IsDependentOn("Db-Script")
     .Does(() =>
 {
     NUnit3("./Mailer.Tests/bin/" + configuration + "/*.Tests.dll", new NUnit3Settings {
         NoResults = true,
         ToolPath="./tools/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe"
+        });
+});
+
+Task("Run-Acceptance-Tests")
+    .IsDependentOn("Build")
+    .IsDependentOn("Db-Script")
+    .Does(() =>
+{
+    NUnit3("./Mailer.AcceptanceTests/bin/" + configuration + "/*.AcceptanceTests.dll", new NUnit3Settings {
+        NoResults = true,
+        ToolPath="./tools/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe"
+        });
+});
+
+
+Task("Spec")
+    //.IsDependentOn("Build")
+    //.IsDependentOn("Db-Script")
+    .Does(() =>
+{
+    NUnit3("./Mailer.AcceptanceTests/bin/" + configuration + "/*.AcceptanceTests.dll", new NUnit3Settings {
+        NoResults = true
         });
 });
 

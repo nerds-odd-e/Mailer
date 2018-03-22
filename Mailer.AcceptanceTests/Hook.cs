@@ -24,7 +24,7 @@ namespace Mailer.AcceptanceTests
         [BeforeScenario]
         public void StartBrowserSession()
         {
-            _browser = new BrowserSession(new SessionConfiguration { AppHost = "localhost", Browser =Browser.Chrome });
+            _browser = new BrowserSession(new SessionConfiguration {AppHost = "localhost", Browser = Browser.Chrome});
             _objectContainer.RegisterInstanceAs(_browser);
         }
 

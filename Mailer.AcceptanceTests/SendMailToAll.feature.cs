@@ -17,7 +17,8 @@ namespace Mailer.AcceptanceTests
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.3.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [TechTalk.SpecRun.FeatureAttribute("SendMailToAll", SourceFile="SendMailToAll.feature", SourceLine=0)]
+    [NUnit.Framework.TestFixtureAttribute()]
+    [NUnit.Framework.DescriptionAttribute("SendMailToAll")]
     public partial class SendMailToAllFeature
     {
         
@@ -26,7 +27,7 @@ namespace Mailer.AcceptanceTests
 #line 1 "SendMailToAll.feature"
 #line hidden
         
-        [TechTalk.SpecRun.FeatureInitialize()]
+        [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
@@ -34,18 +35,19 @@ namespace Mailer.AcceptanceTests
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        [TechTalk.SpecRun.FeatureCleanup()]
+        [NUnit.Framework.OneTimeTearDownAttribute()]
         public virtual void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
         
+        [NUnit.Framework.SetUpAttribute()]
         public virtual void TestInitialize()
         {
         }
         
-        [TechTalk.SpecRun.ScenarioCleanup()]
+        [NUnit.Framework.TearDownAttribute()]
         public virtual void ScenarioTearDown()
         {
             testRunner.OnScenarioEnd();
@@ -61,6 +63,11 @@ namespace Mailer.AcceptanceTests
             testRunner.CollectScenarioErrors();
         }
         
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Send All Email")]
+        [NUnit.Framework.CategoryAttribute("with_local_smtp_server")]
+        [NUnit.Framework.TestCaseAttribute("0", "test@gmail.com", "0", null)]
+        [NUnit.Framework.TestCaseAttribute("1", "test@gmail.com", "1", null)]
         public virtual void SendAllEmail(string upcomingCourse, string contacts, string emailSent, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -82,30 +89,6 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Then(string.Format("Email sent number should be {0}", emailSent), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
-        }
-        
-        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, no upcoming course, 0", new string[] {
-                "with_local_smtp_server"}, SourceLine=11)]
-        public virtual void SendAllEmail_NoUpcomingCourse_0()
-        {
-#line 4
-this.SendAllEmail("0", "test@gmail.com", "0", ((string[])(null)));
-#line hidden
-        }
-        
-        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, have upcoming course, 1", new string[] {
-                "with_local_smtp_server"}, SourceLine=11)]
-        public virtual void SendAllEmail_HaveUpcomingCourse_1()
-        {
-#line 4
-this.SendAllEmail("1", "test@gmail.com", "1", ((string[])(null)));
-#line hidden
-        }
-        
-        [TechTalk.SpecRun.TestRunCleanup()]
-        public virtual void TestRunCleanup()
-        {
-            TechTalk.SpecFlow.TestRunnerManager.GetTestRunner().OnTestRunEnd();
         }
     }
 }

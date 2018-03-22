@@ -67,11 +67,8 @@
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="SpecRun.SpecFlowPlugin, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpecRun.SpecFlow.2-3-0.1.7.0\lib\net45\SpecRun.SpecFlowPlugin.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.0.5797.27534, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.0.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -99,13 +96,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="TechTalk.SpecFlow, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpecFlow.2.3.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
-    </Reference>
-    <Reference Include="TechTalk.SpecRun, Version=1.7.0.0, Culture=neutral, PublicKeyToken=d0fc5cc18b3b389b, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpecRun.SpecFlow.2-3-0.1.7.0\lib\net45\TechTalk.SpecRun.dll</HintPath>
-    </Reference>
-    <Reference Include="TechTalk.SpecRun.Common, Version=1.7.0.0, Culture=neutral, PublicKeyToken=d0fc5cc18b3b389b, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpecRun.SpecFlow.2-3-0.1.7.0\lib\net45\TechTalk.SpecRun.Common.dll</HintPath>
+      <HintPath>..\packages\SpecFlow.2.3.1\lib\net45\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.WebDriver.3.3.0\lib\net40\WebDriver.dll</HintPath>
@@ -142,16 +133,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PersonalisedEmails.feature.cs</LastGenOutput>
     </None>
-    <None Include="runtests.cmd" />
     <None Include="SendMailToAll.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SendMailToAll.feature.cs</LastGenOutput>
-    </None>
-    <None Include="SpecRunTestProfile.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="SpecRunTestProfile_2011_09.xsd">
-      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -167,8 +151,8 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.2.37.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.2.37.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
-    <Error Condition="!Exists('..\packages\SpecFlow.2.3.0\build\SpecFlow.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.2.3.0\build\SpecFlow.targets'))" />
+    <Error Condition="!Exists('..\packages\SpecFlow.2.3.1\build\SpecFlow.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.2.3.1\build\SpecFlow.targets'))" />
   </Target>
   <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.2.37.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.2.37.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
-  <Import Project="..\packages\SpecFlow.2.3.0\build\SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.3.0\build\SpecFlow.targets')" />
+  <Import Project="..\packages\SpecFlow.2.3.1\build\SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.3.1\build\SpecFlow.targets')" />
 </Project>
