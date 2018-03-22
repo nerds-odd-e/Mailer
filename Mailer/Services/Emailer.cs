@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 
 namespace Mailer.Services
@@ -14,15 +15,18 @@ namespace Mailer.Services
 
         public void SendEmail(List<string> recipientList)
         {
-            foreach (var recipient in recipientList)
+            var emails = ConstructEmails(recipientList);
+
+            emails.ForEach(x => Client.Send(x));
+        }
+
+        public List<MailMessage> ConstructEmails(List<string> recipientList)
+        {
+            return recipientList.Select(x => new MailMessage("myodde@gmail.com", x)
             {
-                var mail = new MailMessage("myodde@gmail.com", recipient)
-                {
-                    Subject = "this is a test email.",
-                    Body = "this is my test email body"
-                };
-                Client.Send(mail);
-            }
+                Subject = "this is a test email.",
+                Body = "this is my test email body"
+            }).ToList();
         }
     }
 }
