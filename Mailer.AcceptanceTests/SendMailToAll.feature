@@ -7,10 +7,13 @@ Scenario Outline: Send All Email
 	When I press send email
 	Then Email sent number should be <Email Sent>
 
-Examples: 
+Examples: no upcoming course
 | Upcoming course | contacts          | Email Sent |
 | 0               | test@gmail.com    | 0          |
-| 1               | st@gmail;ap@gmail | 2          |
+
+Examples: have upcoming course
+| Upcoming course | contacts          | Email Sent |
 | 1               | test@gmail.com    | 1          |
-| 1               |                   | 0          |
+#| 1               | st@gmail;ap@gmail | 2          |
+#| 1               |                   | 0          |
 

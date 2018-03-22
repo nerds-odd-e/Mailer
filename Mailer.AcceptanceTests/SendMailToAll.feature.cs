@@ -84,39 +84,21 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, Variant 0", new string[] {
+        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, no upcoming course, 0", new string[] {
                 "with_local_smtp_server"}, SourceLine=11)]
-        public virtual void SendAllEmail_Variant0()
+        public virtual void SendAllEmail_NoUpcomingCourse_0()
         {
 #line 4
 this.SendAllEmail("0", "test@gmail.com", "0", ((string[])(null)));
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, Variant 1", new string[] {
+        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, have upcoming course, 1", new string[] {
                 "with_local_smtp_server"}, SourceLine=11)]
-        public virtual void SendAllEmail_Variant1()
-        {
-#line 4
-this.SendAllEmail("1", "st@gmail;ap@gmail", "2", ((string[])(null)));
-#line hidden
-        }
-        
-        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, Variant 2", new string[] {
-                "with_local_smtp_server"}, SourceLine=11)]
-        public virtual void SendAllEmail_Variant2()
+        public virtual void SendAllEmail_HaveUpcomingCourse_1()
         {
 #line 4
 this.SendAllEmail("1", "test@gmail.com", "1", ((string[])(null)));
-#line hidden
-        }
-        
-        [TechTalk.SpecRun.ScenarioAttribute("Send All Email, Variant 3", new string[] {
-                "with_local_smtp_server"}, SourceLine=11)]
-        public virtual void SendAllEmail_Variant3()
-        {
-#line 4
-this.SendAllEmail("1", "", "0", ((string[])(null)));
 #line hidden
         }
         
