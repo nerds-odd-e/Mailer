@@ -26,7 +26,6 @@ namespace Mailer.Tests.Controllers
         {
             var recipientList = new List<string> { "test1@gmail.com", "test2@gmail.com" };
             _homeController.SendEmail(recipientList, _fakeClient);
-            _fakeClient.Received(1).EnableSsl();
             _fakeClient.Received(2).Send(Arg.Any<MailMessage>());
         }
     }

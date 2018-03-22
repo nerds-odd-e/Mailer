@@ -5,7 +5,6 @@ namespace Mailer.Services
     public interface ISmtpClient
     {
         void Send(MailMessage email);
-        void EnableSsl();
         void Dispose();
     }
 }

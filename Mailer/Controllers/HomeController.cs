@@ -38,7 +38,6 @@ namespace Mailer.Controllers
 
         public void SendEmail(List<string> recipientList, ISmtpClient clientWrapper)
         {
-            clientWrapper.EnableSsl();
             foreach (var recipient in recipientList)
             {
                 var mail = new MailMessage("myodde@gmail.com", recipient)
