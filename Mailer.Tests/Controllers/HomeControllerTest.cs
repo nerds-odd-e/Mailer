@@ -5,8 +5,6 @@ using Mailer.Services;
 using NSubstitute;
 using NUnit.Framework;
 
-
-
 namespace Mailer.Tests.Controllers
 {
     [TestFixture]

@@ -10,9 +10,7 @@ namespace Mailer.AcceptanceTests
     public class SendMailToAllSteps
     {
         private readonly BrowserSession _browser;
-        private int _course;
-        private string _contactEmail;
-        private SimpleSmtpServer _smtpServer;
+        private readonly SimpleSmtpServer _smtpServer;
 
         public SendMailToAllSteps(BrowserSession browser, SimpleSmtpServer smtpServer)
         {
@@ -23,7 +21,6 @@ namespace Mailer.AcceptanceTests
         [Given(@"Upcoming course number is (.*)")]
         public void GivenUpcomingCourseNumberIs(int number)
         {
-            _course = number;
         }
 
         [Given(@"I register a contact with email (.*)")]
