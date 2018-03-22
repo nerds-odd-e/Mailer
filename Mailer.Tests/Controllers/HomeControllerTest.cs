@@ -9,9 +9,8 @@ using NUnit.Framework;
 
 namespace Mailer.Tests.Controllers
 {
-    [WithDB]
     [TestFixture]
-    public class HomeControllerTest
+    public class HomeControllerTest : WithDBAttribute
     {
         private ISmtpClient _fakeClient;
         private HomeController _homeController;
@@ -25,16 +24,14 @@ namespace Mailer.Tests.Controllers
             {
                 Client = _fakeClient
             };
-            using (var db = new MailerDbEntities())
+
+            var contacts = new List<Contact>
             {
-                var contacts = new List<Contact>
-                {
-                    new Contact {Email = "test@test.com"},
-                    new Contact {Email = "test2@test.com"}
-                };
-                db.Contacts.AddRange(contacts);
-                db.SaveChanges();
-            }
+                new Contact {Email = "test@test.com"},
+                new Contact {Email = "test2@test.com"}
+            };
+            db.Contacts.AddRange(contacts);
+            db.SaveChanges();
         }
 
         [Test]
@@ -42,18 +39,6 @@ namespace Mailer.Tests.Controllers
         {
             _homeController.SendAllMail();
             _fakeClient.Received(2).Send(Arg.Any<MailMessage>());
-        }
-    }
-
-    [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
-    public class WithDBAttribute : Attribute
-    {
-        public WithDBAttribute()
-        {
-            using (var db = new MailerDbEntities())
-            {
-                db.Database.ExecuteSqlCommand("delete from Contact");
-            }
         }
     }
 }
