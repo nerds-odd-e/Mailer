@@ -20,6 +20,10 @@ IF  NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Contact')
     BEGIN
         CREATE Table Contact (ID int IDENTITY(1,1) PRIMARY KEY, Email VARCHAR(50) not null);
     END;
+IF  NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Courses')
+    BEGIN
+        create table courses (    Id int Identity primary key, CourseName varchar(255) not null, StartDate smalldatetime not null, EndDate smalldatetime not null)
+    END;
 ";
 $cmd = New-Object Data.SqlClient.SqlCommand $sql, $con;
 $cmd.ExecuteNonQuery();	
