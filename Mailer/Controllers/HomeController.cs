@@ -30,18 +30,5 @@ namespace Mailer.Controllers
             var db = new MailerDbEntities();
             return db.Contacts.Select(x=> x.Email).ToList() ;
         }
-
-        public void SendEmail(List<string> recipientList, ISmtpClient clientWrapper)
-        {
-            foreach (var recipient in recipientList)
-            {
-                var mail = new MailMessage("myodde@gmail.com", recipient)
-                {
-                    Subject = "this is a test email.",
-                    Body = "this is my test email body"
-                };
-                clientWrapper.Send(mail);
-            }
-        }
     }
 }
