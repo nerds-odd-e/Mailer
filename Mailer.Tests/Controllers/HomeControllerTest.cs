@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using Mailer.Controllers;
 using Mailer.Models;
@@ -14,6 +15,27 @@ namespace Mailer.Tests.Controllers
     {
         private ISmtpClient _fakeClient;
         private HomeController _homeController;
+        List<Contact> contacts = new List<Contact>
+        {
+            new Contact {Email = "test@test.com"},
+            new Contact {Email = "test2@test.com"}
+        };
+
+        List<Course> courses = new List<Course>()
+        {
+            new Course
+            {
+                CourseName = "A_Course",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now
+            },
+            new Course
+            {
+                CourseName = "B_Course",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now
+            }
+        };
 
         [SetUp]
         public void Init()
@@ -29,45 +51,32 @@ namespace Mailer.Tests.Controllers
         [Test]
         public void NoCourses_DoNotSendMail()
         {
-            
-            var contacts = new List<Contact>
-            {
-                new Contact {Email = "test@test.com"},
-                new Contact {Email = "test2@test.com"}
-            };
             db.Contacts.AddRange(contacts);
             db.SaveChanges();
+
             _homeController.SendAllMail();
             _fakeClient.Received(0).Send(Arg.Any<MailMessage>());
         }
 
         [Test]
-        public void SendEmail()
+        public void HaveCourses_SendMail()
         {
-            using (var db = new MailerDbEntities())
-            {
-                var courses = new List<Course>();
-                for (int i = 0; i < 2; i++)
-                {
-                    courses.Add(new Course
-                    {
-                        CourseName = i.ToString(),
-                        StartDate = DateTime.Now,
-                        EndDate = DateTime.Now
-                    });
-                }
-                db.Courses.AddRange(courses);
-                db.SaveChanges();
-            }
-            var contacts = new List<Contact>
-            {
-                new Contact {Email = "test@test.com"},
-                new Contact {Email = "test2@test.com"}
-            };
+            db.Courses.AddRange(courses);
             db.Contacts.AddRange(contacts);
             db.SaveChanges();
+
             _homeController.SendAllMail();
-            _fakeClient.Received(2).Send(Arg.Any<MailMessage>());
+            _fakeClient.Received(contacts.Count).Send(Arg.Any<MailMessage>());
+        }
+
+        [Test]
+        public void NoContactsHasCourses_DoNotSendMail()
+        {
+            db.Courses.AddRange(courses);
+            db.SaveChanges();
+
+            _homeController.SendAllMail();
+            _fakeClient.Received(0).Send(Arg.Any<MailMessage>());
         }
     }
 }
