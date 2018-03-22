@@ -31,25 +31,5 @@ namespace Mailer.Tests.Controllers
             fakeClient.Received(1).EnableSsl();
             fakeClient.Received(2).Send(Arg.Any<MailMessage>());
         }
-        //[Test]
-        
-        //    public void SendAllMailTest()
-        //    {
-
-        //        var homecontroller = new HomeController();
-        //        var result = homecontroller.SendAllMail();
-
-        //    }
-        
-
-        private static int AnyInt()
-        {
-            return Arg.Any<int>();
-        }
-
-        private static string AnyString()
-        {
-            return Arg.Any<string>();
-        }
     }
 }
