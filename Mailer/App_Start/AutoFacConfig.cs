@@ -1,10 +1,21 @@
-﻿using Autofac;
+﻿using System.Web.Mvc;
+using Autofac;
+using Autofac.Integration.Mvc;
+using Mailer.Services;
 
 namespace Mailer
 {
-    public class AutoFacConfig
+    public static class AutofacConfig
     {
-        ContainerBuilder builder = new ContainerBuilder();
+        public static IContainer Container { get; set; }
 
+        public static void RegisterConfig()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterType<SmtpClientWrapper>().As<ISmtpClient>().PropertiesAutowired();
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            Container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(Container));
+        }
     }
 }

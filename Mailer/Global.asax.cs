@@ -16,6 +16,7 @@ namespace Mailer
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             var rootPath = AppDomain.CurrentDomain.BaseDirectory;
+            AutofacConfig.RegisterConfig();
             DotEnv.Config(true, rootPath + "/.env");
         }
     }

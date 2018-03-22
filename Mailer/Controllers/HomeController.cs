@@ -20,10 +20,6 @@ namespace Mailer.Controllers
         {
             try
             {
-                if (Client == null)
-                {
-                    Client = new SmtpClientWrapper();
-                }
                 var contacts = GetAllContact();
                 SendEmail(contacts, Client);
                 return View(true);
