@@ -17,6 +17,7 @@ namespace Mailer.Tests.Controllers
         public void CleanDb()
         {
             db.Database.ExecuteSqlCommand("delete from Contact");
+            db.Database.ExecuteSqlCommand("delete from Course");
         }
 
         [TearDown]

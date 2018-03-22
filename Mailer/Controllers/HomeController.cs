@@ -19,8 +19,8 @@ namespace Mailer.Controllers
         public ActionResult SendAllMail()
         {
             var contacts = GetAllContact();
-            var Emailer = new Emailer(Client);
-            Emailer.SendEmail(contacts);
+            var emailer = new Emailer(Client);
+            emailer.SendEmail(contacts);
             return View();
 
         }

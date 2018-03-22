@@ -10,6 +10,7 @@ namespace Mailer.Models
         }
 
         public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
