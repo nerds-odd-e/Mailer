@@ -24,7 +24,7 @@ namespace Mailer.Services
             _smtpClient.Host = Environment.GetEnvironmentVariable("smtpHost") ?? "localhost";
             _smtpClient.Port = int.Parse(Environment.GetEnvironmentVariable("smtpPort") ?? "25");
             _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            if (_smtpClient.Host != "localhost")
+            if (!TestingWithLocalhost())
             {
                 _smtpClient.EnableSsl = true;
                 _smtpClient.UseDefaultCredentials = false;
@@ -32,6 +32,11 @@ namespace Mailer.Services
                 var password = Environment.GetEnvironmentVariable("senderPassword");
                 _smtpClient.Credentials = new NetworkCredential(email, password);
             }
+        }
+
+        private bool TestingWithLocalhost()
+        {
+            return _smtpClient.Host == "localhost";
         }
 
         public void Dispose()
