@@ -43,7 +43,7 @@ namespace Mailer.AcceptanceTests
         public void WhenIPressSendEmail()
         {
             _browser.Visit("http://localhost/Home");
-            _browser.ClickLink("Send Email");
+            _browser.ClickButton("Send Email");
         }
 
         [Then(@"Email sent number should be (.*)")]
