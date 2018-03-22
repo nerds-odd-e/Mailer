@@ -1,5 +1,6 @@
 ﻿Feature: SendMailToAll
 
+@ignore
 @with_local_smtp_server
 Scenario Outline: Send All Email
 	Given Upcoming course number is <Upcoming course>

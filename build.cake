@@ -78,24 +78,13 @@ Task("Run-Acceptance-Tests")
         ToolPath="./tools/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe"
         });
 });
-
-
-Task("Spec")
-    //.IsDependentOn("Build")
-    //.IsDependentOn("Db-Script")
-    .Does(() =>
-{
-    NUnit3("./Mailer.AcceptanceTests/bin/" + configuration + "/*.AcceptanceTests.dll", new NUnit3Settings {
-        NoResults = true
-        });
-});
-
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Run-Unit-Tests");
+    .IsDependentOn("Run-Unit-Tests")
+    .IsDependentOn("Run-Acceptance-Tests");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
