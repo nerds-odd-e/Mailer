@@ -5,6 +5,7 @@ using dotenv.net;
 using Mailer.Models;
 using Mailer.Services;
 using netDumbster.smtp;
+using NUnit.Framework.Internal;
 
 namespace Mailer.Tests
 {
@@ -46,6 +47,7 @@ namespace Mailer.Tests
             Assert.AreEqual("from@gmail.com", smtpMessage.FromAddress.Address);
             Assert.AreEqual("to@gmail.com", smtpMessage.ToAddresses[0].Address);
         }
+
     }
 
    

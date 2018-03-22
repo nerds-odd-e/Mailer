@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
 using System.Web.Mvc;
+using Castle.Core.Internal;
 using Mailer.Models;
 using Mailer.Services;
 
@@ -19,8 +19,17 @@ namespace Mailer.Controllers
         public ActionResult SendAllMail()
         {
             var contacts = GetAllContact();
-            var emailer = new Emailer(Client);
-            emailer.SendEmail(contacts);
+            List<Course> courses;
+            using (var mailDb = new MailerDbEntities())
+            {
+                courses = mailDb.Courses.ToList();
+            }
+
+            if (!courses.IsNullOrEmpty())
+            {
+                var emailer = new Emailer(Client);
+                emailer.SendEmail(contacts);
+            }
             return View();
 
         }
