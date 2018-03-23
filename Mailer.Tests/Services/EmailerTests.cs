@@ -11,57 +11,70 @@ namespace Mailer.Tests.Services
     {
         private ISmtpClient _smtpClient;
         private Emailer _emailer;
+        private List<Contact> _recipientList;
+        private List<Contact> _emptyRecipientList;
+        private Contact contact1;
+        private Contact contact2;
 
         [SetUp]
         public void SetUp()
         {
+            contact1 = new Contact()
+            {
+                FirstName = "First_1",
+                LastName = "Last_1",
+                Email = "test1@gmail.com"
+            };
+            contact2 = new Contact()
+            {
+                FirstName = "First_2",
+                LastName = "Last_2",
+                Email = "test2@gmail.com"
+            };
             _smtpClient = Substitute.For<ISmtpClient>();
             _emailer = new Emailer(_smtpClient);
+            _recipientList = new List<Contact>();
+            _emptyRecipientList = new List<Contact>();
         }
 
         [Test]
         public void DoNotSend_WhenNoRecipient()
         {
-            var recipientList = new List<string>();
-            var actualEmails = _emailer.ConstructEmails(recipientList);
+            var actualEmails = _emailer.ConstructPersonalizedEmails(_emptyRecipientList);
             Assert.AreEqual(0, actualEmails.Count);
         }
 
         [Test]
         public void SendOneEmail_WhenOnlyOneRecipient()
         {
-            var recipientList = new List<string>{ "test1@gmail.com" };
-            var actualEmails = _emailer.ConstructEmails(recipientList);
+            _recipientList.Add(contact1);
+            var actualEmails = _emailer.ConstructPersonalizedEmails(_recipientList);
             Assert.AreEqual(1, actualEmails.Count);
-            Assert.AreEqual("test1@gmail.com", actualEmails[0].To[0].Address);
+            Assert.AreEqual(contact1.Email, actualEmails[0].To[0].Address);
+            Assert.IsTrue(actualEmails[0].Body.StartsWith("Hi " + contact1.FirstName + " " + contact1.LastName));
         }
 
         [Test]
         public void SendMultiple_WhenMultipleRecipient()
         {
-            var recipientList = new List<string> {"test1@gmail.com", "test2@gmail.com"};
-            var actualEmails = _emailer.ConstructEmails(recipientList);
+            _recipientList.Add(contact1);
+            _recipientList.Add(contact2);
+            var actualEmails = _emailer.ConstructPersonalizedEmails(_recipientList);
+
             Assert.AreEqual(2, actualEmails.Count);
-            Assert.AreEqual("test1@gmail.com", actualEmails[0].To[0].Address);
-            Assert.AreEqual("test2@gmail.com", actualEmails[1].To[0].Address);
+            Assert.AreEqual(contact1.Email, actualEmails[0].To[0].Address);
+            Assert.IsTrue(actualEmails[0].Body.StartsWith("Hi " + contact1.FirstName + " " + contact1.LastName));
+
+            Assert.AreEqual(contact2.Email, actualEmails[1].To[0].Address);
+            Assert.IsTrue(actualEmails[1].Body.StartsWith("Hi " + contact2.FirstName + " " + contact2.LastName));
         }
-
-        [Test]
-        public void SendWithFirstNameLastName()
-        {
-            var contacts = new List<Contact>() { new Contact(){FirstName = "First", LastName = "Last", Email = "test@gmail.com"} };
-
-            var emailMessages = _emailer.ConstructPersonalizedEmail(contacts);
-            Assert.AreEqual(1, emailMessages.Count);
-            Assert.IsTrue(emailMessages[0].Body.StartsWith("Hi First Last"));
-        }
-
+        
         [Test]
         public void SendWithFirstNameAndNoLastName()
         {
             var contacts = new List<Contact>() { new Contact() { FirstName = "First", Email = "test@gmail.com" } };
 
-            var emailMessages = _emailer.ConstructPersonalizedEmail(contacts);
+            var emailMessages = _emailer.ConstructPersonalizedEmails(contacts);
             Assert.AreEqual(1, emailMessages.Count);
             Assert.IsTrue(emailMessages[0].Body.StartsWith("Hi First"));
         }
