@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Mailer.Models;
 using Mailer.Services;
 using NSubstitute;
 using NUnit.Framework;
@@ -45,11 +46,25 @@ namespace Mailer.Tests.Services
             Assert.AreEqual("test2@gmail.com", actualEmails[1].To[0].Address);
         }
 
-       /* [Test]
+        [Test]
         public void SendWithFirstNameLastName()
         {
+            var contacts = new List<Contact>() { new Contact(){FirstName = "First", LastName = "Last", Email = "test@gmail.com"} };
 
-        }*/
+            var emailMessages = _emailer.ConstructPersonalizedEmail(contacts);
+            Assert.AreEqual(1, emailMessages.Count);
+            Assert.IsTrue(emailMessages[0].Body.StartsWith("Hi First Last"));
+        }
+
+        [Test]
+        public void SendWithFirstNameAndNoLastName()
+        {
+            var contacts = new List<Contact>() { new Contact() { FirstName = "First", Email = "test@gmail.com" } };
+
+            var emailMessages = _emailer.ConstructPersonalizedEmail(contacts);
+            Assert.AreEqual(1, emailMessages.Count);
+            Assert.IsTrue(emailMessages[0].Body.StartsWith("Hi First"));
+        }
     }
 
 

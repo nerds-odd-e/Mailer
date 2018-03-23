@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using Mailer.Models;
 
 namespace Mailer.Services
 {
@@ -13,9 +14,9 @@ namespace Mailer.Services
 
         public ISmtpClient Client { get; set; }
 
-        public void SendEmail(List<string> recipientList)
+        public void SendEmail(List<Contact> recipientList)
         {
-            var emails = ConstructEmails(recipientList);
+            var emails = ConstructPersonalizedEmail(recipientList);
 
             emails.ForEach(x => Client.Send(x));
         }
@@ -26,6 +27,15 @@ namespace Mailer.Services
             {
                 Subject = "this is a test email.",
                 Body = "this is my test email body"
+            }).ToList();
+        }
+
+        public List<MailMessage> ConstructPersonalizedEmail(List<Contact> contacts)
+        {
+            return contacts.Select(x => new MailMessage("myodde@gmail.com", x.Email)
+            {
+                Subject = "this is a test email.",
+                Body = string.Format("Hi {0} {1}\n\n{2}", x.FirstName, x.LastName, "this is a test body.")
             }).ToList();
         }
     }
