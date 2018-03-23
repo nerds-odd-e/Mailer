@@ -1,5 +1,4 @@
-﻿using System;
-using Coypu;
+﻿using Coypu;
 using netDumbster.smtp;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -34,6 +33,7 @@ namespace Mailer.AcceptanceTests
         [Then(@"Recepient's email starts with (.*)")]
         public void ThenRecepientSEmailStartsWith(string header)
         {
+            Assert.AreEqual(1, _smtpServer.ReceivedEmailCount);
             Assert.IsTrue(_smtpServer.ReceivedEmail[0].MessageParts[0].BodyData.StartsWith(header));
         }
     }

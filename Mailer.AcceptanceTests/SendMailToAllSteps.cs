@@ -64,6 +64,7 @@ namespace Mailer.AcceptanceTests
             _browser.ClickButton("Send Email");
         }
 
+
         [Then(@"Email sent number should be (.*)")]
         public void ThenEmailSentNumberShouldBe(int emailCount)
         {
