@@ -1,7 +1,7 @@
 ﻿Feature: SendMailToAll
 
-@ignore
 @with_local_smtp_server
+@ignore
 Scenario Outline: Send All Email
 	Given Upcoming course number is <Upcoming course>
 	And I register a contact with email <contacts>

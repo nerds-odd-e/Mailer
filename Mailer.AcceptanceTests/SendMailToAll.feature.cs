@@ -72,8 +72,8 @@ namespace Mailer.AcceptanceTests
         public virtual void SendAllEmail(string upcomingCourse, string contacts, string emailSent, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "ignore",
-                    "with_local_smtp_server"};
+                    "with_local_smtp_server",
+                    "ignore"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using BoDi;
 using Coypu;
 using Coypu.Drivers;
@@ -15,6 +16,7 @@ namespace Mailer.AcceptanceTests
         private readonly IObjectContainer _objectContainer;
         private BrowserSession _browser;
         private SimpleSmtpServer _smtpServer;
+        private MailerDbEntities _db;
 
         public Hooks(IObjectContainer objectContainer)
         {
@@ -25,8 +27,11 @@ namespace Mailer.AcceptanceTests
         public void StartBrowserSession()
         {
             _browser = new BrowserSession(new SessionConfiguration {AppHost = "localhost", Browser = Browser.Chrome});
+            _db = new MailerDbEntities();
             _objectContainer.RegisterInstanceAs(_browser);
+            _objectContainer.RegisterInstanceAs(_db);
         }
+
 
         [BeforeScenario]
         public void InitEnvFile()
@@ -37,25 +42,25 @@ namespace Mailer.AcceptanceTests
         }
 
         [BeforeScenario("@with_local_smtp_server")]
-        public void StartLocalSmtpServer()
+        public void CleanReceivedEmails()
         {
             _smtpServer = SimpleSmtpServer.Start(25);
             _objectContainer.RegisterInstanceAs(_smtpServer);
+
         }
 
         [BeforeScenario]
         public void CleanDb()
         {
-            using (var db = new MailerDbEntities())
-            {
-                db.Database.ExecuteSqlCommand("delete from contact");
-            }
+            _db.Database.ExecuteSqlCommand("delete from contact");
+            _db.Database.ExecuteSqlCommand("delete from course");
         }
 
         [AfterScenario]
         public void DisposeBrowserSession()
         {
             _browser.Dispose();
+            _db.Dispose();
         }
 
         [AfterScenario("@with_local_smtp_server")]
