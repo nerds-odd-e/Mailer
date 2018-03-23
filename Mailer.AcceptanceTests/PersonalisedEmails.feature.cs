@@ -79,10 +79,12 @@ namespace Mailer.AcceptanceTests
 #line 4
 this.ScenarioSetup(scenarioInfo);
 #line 5
- testRunner.Given(string.Format("{0} {1}\'s email address {2} is registered in system", firstName, lastName, emailAddress), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Upcoming course number is 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
- testRunner.When("I press send email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And(string.Format("{0} {1}\'s email address {2} is registered in system", firstName, lastName, emailAddress), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 7
+ testRunner.When("I press send email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 8
  testRunner.Then(string.Format("Recepient\'s email starts with Hi {0} {1}", firstName, lastName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

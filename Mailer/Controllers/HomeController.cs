@@ -21,11 +21,11 @@ namespace Mailer.Controllers
             var contacts = db.Contacts.ToList();
             var courses = db.Courses.ToList();
 
-           /* if (!courses.IsNullOrEmpty())
-            {*/
+            if (!courses.IsNullOrEmpty())
+            {
                 var emailer = new Emailer(Client);
                 emailer.SendEmail(contacts);
-            //}
+            }
             return View(true);
 
         }
