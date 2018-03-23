@@ -17,8 +17,8 @@ namespace Mailer.Services
         public void SendEmail(List<Contact> recipientList)
         {
             var emails = ConstructPersonalizedEmails(recipientList);
-
             emails.ForEach(x => Client.Send(x));
+            Client.Dispose();
         }
 
         public List<MailMessage> ConstructPersonalizedEmails(List<Contact> contacts)

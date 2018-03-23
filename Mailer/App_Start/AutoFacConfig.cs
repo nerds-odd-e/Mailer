@@ -12,7 +12,7 @@ namespace Mailer
         public static void RegisterConfig()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<SmtpClientWrapper>().As<ISmtpClient>().PropertiesAutowired().SingleInstance();
+            builder.RegisterType<SmtpClientWrapper>().As<ISmtpClient>().PropertiesAutowired().InstancePerRequest();
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
             Container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(Container));
