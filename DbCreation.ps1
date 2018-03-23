@@ -18,7 +18,7 @@ $sql = "
 use $dbname  
 IF  NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Contact')
     BEGIN
-        CREATE Table Contact (ID int IDENTITY(1,1) PRIMARY KEY, Email VARCHAR(50) not null);
+        CREATE Table Contact (ID int IDENTITY(1,1) PRIMARY KEY, Email VARCHAR(50) not null, FirstName NVARCHAR(50) not null, LastName NVARCHAR(50) null);
     END;
 IF  NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Course')
     BEGIN
@@ -46,7 +46,7 @@ $sql = "
 use $dbname  
 IF  NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Contact')
     BEGIN
-        CREATE Table Contact (ID int IDENTITY(1,1) PRIMARY KEY, Email VARCHAR(50) not null);
+        CREATE Table Contact (ID int IDENTITY(1,1) PRIMARY KEY, Email VARCHAR(50) not null, FirstName NVARCHAR(50) not null, LastName NVARCHAR(50) null);
     END;
 IF  NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Course')
     BEGIN

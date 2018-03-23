@@ -65,17 +65,26 @@ namespace Mailer.AcceptanceTests
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Personalise Email Header")]
+        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
+        [NUnit.Framework.CategoryAttribute("with_local_smtp_server")]
         [NUnit.Framework.TestCaseAttribute("Xman", "Logo", "lx@gmail.com", null)]
         public virtual void PersonaliseEmailHeader(string firstName, string lastName, string emailAddress, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Personalise Email Header", exampleTags);
-#line 3
-this.ScenarioSetup(scenarioInfo);
-#line 4
- testRunner.Given(string.Format("{0} {1}\'s email address {2} is registered in system", firstName, lastName, emailAddress), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+            string[] @__tags = new string[] {
+                    "ignore",
+                    "with_local_smtp_server"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Personalise Email Header", @__tags);
 #line 5
- testRunner.When("I press send email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 6
+ testRunner.Given(string.Format("{0} {1}\'s email address {2} is registered in system", firstName, lastName, emailAddress), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 7
+ testRunner.When("I press send email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 8
  testRunner.Then(string.Format("Recepient\'s email starts with \"Hi {0} {1}\"", firstName, lastName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
