@@ -75,7 +75,7 @@ Task("Run-Acceptance-Tests")
 {
     NUnit3("./Mailer.AcceptanceTests/bin/" + configuration + "/*.AcceptanceTests.dll", new NUnit3Settings {
         NoResults = true,
-        ToolPath="./tools/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe"
+        ToolPath="./tools/NUnit.ConsoleRunner.3.4.0/tools/nunit3-console.exe"
         });
 });
 //////////////////////////////////////////////////////////////////////
