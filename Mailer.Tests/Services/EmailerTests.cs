@@ -44,6 +44,12 @@ namespace Mailer.Tests.Services
             Assert.AreEqual("test1@gmail.com", actualEmails[0].To[0].Address);
             Assert.AreEqual("test2@gmail.com", actualEmails[1].To[0].Address);
         }
+
+       /* [Test]
+        public void SendWithFirstNameLastName()
+        {
+
+        }*/
     }
 
 

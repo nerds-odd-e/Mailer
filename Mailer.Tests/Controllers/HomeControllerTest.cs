@@ -17,8 +17,8 @@ namespace Mailer.Tests.Controllers
         private HomeController _homeController;
         List<Contact> contacts = new List<Contact>
         {
-            new Contact {Email = "test@test.com"},
-            new Contact {Email = "test2@test.com"}
+            new Contact {FirstName = "Test1", Email = "test@test.com"},
+            new Contact {FirstName = "Test2",  Email = "test2@test.com"}
         };
 
         List<Course> courses = new List<Course>()

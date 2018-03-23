@@ -32,6 +32,7 @@ namespace Mailer.Tests.Controllers
         {
             _controller.Create( new Contact
             {
+                FirstName = "test",
                 Email = "testabc@gmail.com"
             });
             var contacts = _db.Contacts.First(x => x.Email == "testabc@gmail.com");
@@ -94,6 +95,7 @@ namespace Mailer.Tests.Controllers
             {
                 _controller.Create(new Contact
                 {
+                    FirstName = "Test",
                     Email = "UnitTest@Test.com"
                 });
             }
