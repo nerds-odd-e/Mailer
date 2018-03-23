@@ -65,7 +65,6 @@ namespace Mailer.AcceptanceTests
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Send All Email")]
-        [NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         [NUnit.Framework.CategoryAttribute("with_local_smtp_server")]
         [NUnit.Framework.TestCaseAttribute("0", "test@gmail.com", "0", null)]
         [NUnit.Framework.TestCaseAttribute("1", "test@gmail.com", "1", null)]
@@ -74,22 +73,21 @@ namespace Mailer.AcceptanceTests
         public virtual void SendAllEmail(string upcomingCourse, string contacts, string emailSent, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "with_local_smtp_server",
-                    "ignore"};
+                    "with_local_smtp_server"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Send All Email", @__tags);
-#line 5
+#line 4
 this.ScenarioSetup(scenarioInfo);
-#line 6
+#line 5
  testRunner.Given(string.Format("Upcoming course number is {0}", upcomingCourse), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 7
+#line 6
  testRunner.And(string.Format("I register a contact with email {0}", contacts), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 8
+#line 7
  testRunner.When("I press send email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
+#line 8
  testRunner.Then(string.Format("Email sent number should be {0}", emailSent), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
