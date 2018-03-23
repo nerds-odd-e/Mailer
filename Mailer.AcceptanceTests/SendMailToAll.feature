@@ -15,6 +15,6 @@ Examples: no upcoming course
 Examples: have upcoming course
 | Upcoming course | contacts          | Email Sent |
 | 1               | test@gmail.com    | 1          |
-#| 1               | st@gmail;ap@gmail | 2          |
-#| 1               |                   | 0          |
+| 1               | st@gmail;ap@gmail | 2          |
+| 1               |                   | 0          |
 

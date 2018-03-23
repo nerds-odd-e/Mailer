@@ -69,6 +69,8 @@ namespace Mailer.AcceptanceTests
         [NUnit.Framework.CategoryAttribute("with_local_smtp_server")]
         [NUnit.Framework.TestCaseAttribute("0", "test@gmail.com", "0", null)]
         [NUnit.Framework.TestCaseAttribute("1", "test@gmail.com", "1", null)]
+        [NUnit.Framework.TestCaseAttribute("1", "st@gmail;ap@gmail", "2", null)]
+        [NUnit.Framework.TestCaseAttribute("1", "", "0", null)]
         public virtual void SendAllEmail(string upcomingCourse, string contacts, string emailSent, string[] exampleTags)
         {
             string[] @__tags = new string[] {

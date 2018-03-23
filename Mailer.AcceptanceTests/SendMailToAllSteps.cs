@@ -44,13 +44,13 @@ namespace Mailer.AcceptanceTests
         [Given(@"I register a contact with email (.*)")]
         public void GivenIRegisterAContactWithEmail(string emailAddress)
         {
-            _browser.Visit("http://localhost");
-            _browser.ClickLink("Register Contact");
-            _browser.ClickLink("Create New");
-
             var addresses = emailAddress.Split(';').ToList();
             addresses.ForEach(x =>
             {
+                _browser.Visit("http://localhost");
+                _browser.ClickLink("Register Contact");
+                _browser.ClickLink("Create New");
+                _browser.FillIn("FirstName").With("1stname");
                 _browser.FillIn("Email").With(x.Replace("\"", ""));
                 Assert.AreEqual(x.Replace("\"", ""), _browser.FindField("Email").Value);
                 _browser.ClickButton("Create");

@@ -26,7 +26,7 @@ namespace Mailer.Controllers
                 var emailer = new Emailer(Client);
                 emailer.SendEmail(contacts);
             }
-            return View();
+            return View(true);
 
         }
     }
